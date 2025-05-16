@@ -4,25 +4,21 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function StudentLogin() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
 
   const validateForm = () => {
     const newErrors = {};
     if (!formData.email) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email';
+      newErrors.email = 'Email or username is required';
     }
     if (!formData.password) {
       newErrors.password = 'Password is required';
-    } else if (formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -38,7 +34,7 @@ export default function StudentLogin() {
         // Simulate API call
         await new Promise(resolve => setTimeout(resolve, 1000));
         // If successful, redirect to student dashboard
-        // router.push('/dashboard/student');
+        router.push('/dashboard/student');
       } catch (error) {
         console.error('Login failed:', error);
       } finally {
@@ -49,6 +45,10 @@ export default function StudentLogin() {
 
   const handleSignUp = () => {
     router.push('/signup/student');
+  };
+
+  const handleForgotPassword = () => {
+    router.push('/forgot-password/student');
   };
 
   return (
@@ -77,7 +77,7 @@ export default function StudentLogin() {
             </label>
             <input
               id="email"
-              type="email"
+              type="text"
               placeholder="Enter your email or username"
               value={formData.email}
               onChange={(e) => setFormData({...formData, email: e.target.value})}
@@ -110,9 +110,13 @@ export default function StudentLogin() {
           </div>
 
           <div className="text-center">
-            <a href="#" className="text-[#00A9FF] hover:underline">
+            <button 
+              type="button" 
+              onClick={handleForgotPassword}
+              className="text-[#00A9FF] hover:underline"
+            >
               Forgot Password? Click Here!
-            </a>
+            </button>
           </div>
 
           <div className="flex gap-4">

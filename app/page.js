@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
@@ -16,7 +15,7 @@ export default function Home() {
 
   return (
     <main 
-      className="min-h-screen w-full flex items-center justify-center"
+      className="min-h-screen w-full flex items-center justify-center relative"
       style={{
         backgroundImage: 'url("/Library.jpg")',
         backgroundSize: 'cover',
@@ -49,10 +48,12 @@ export default function Home() {
             Student
           </button>
         </div>
-
       </div>
 
-      
+      {/* Footer */}
+      <div className="absolute bottom-4 text-white text-sm">
+        © 2025 BSIT 2-4
+      </div>
     </main>
   );
 }

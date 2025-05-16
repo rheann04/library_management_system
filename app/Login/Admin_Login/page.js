@@ -4,12 +4,13 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function AdminLogin() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     username: '',
     password: ''
   });
   const [errors, setErrors] = useState({});
-  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const validateForm = () => {
     const newErrors = {};
@@ -23,12 +24,27 @@ export default function AdminLogin() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // Add your login logic here
-      console.log('Admin login attempt:', formData);
+      setIsLoading(true);
+      try {
+        // Add your login logic here
+        console.log('Admin login attempt:', formData);
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        // If successful, redirect to admin dashboard
+        router.push('/dashboard/admin');
+      } catch (error) {
+        console.error('Login failed:', error);
+      } finally {
+        setIsLoading(false);
+      }
     }
+  };
+
+  const handleForgotPassword = () => {
+    router.push('/contact-admin');
   };
 
   return (
@@ -62,6 +78,7 @@ export default function AdminLogin() {
               className={`w-full px-4 py-3 rounded-lg bg-white/50 border focus:ring-2 outline-none transition-all ${
                 errors.username ? 'border-red-500 focus:border-red-500 focus:ring-red-200' : 'border-gray-300 focus:border-blue-500 focus:ring-blue-200'
               }`}
+              disabled={isLoading}
             />
             {errors.username && (
               <p className="text-red-500 text-sm mt-1">{errors.username}</p>
@@ -81,6 +98,7 @@ export default function AdminLogin() {
               className={`w-full px-4 py-3 rounded-lg bg-white/50 border focus:ring-2 outline-none transition-all ${
                 errors.password ? 'border-red-500 focus:border-red-500 focus:ring-red-200' : 'border-gray-300 focus:border-blue-500 focus:ring-blue-200'
               }`}
+              disabled={isLoading}
             />
             {errors.password && (
               <p className="text-red-500 text-sm mt-1">{errors.password}</p>
@@ -88,23 +106,28 @@ export default function AdminLogin() {
           </div>
 
           <div className="text-center">
-            <a href="#" className="text-blue-600 hover:underline">
+            <button
+              type="button"
+              onClick={handleForgotPassword}
+              className="text-blue-600 hover:underline"
+            >
               Forgot Password? Contact System Administrator
-            </a>
+            </button>
           </div>
 
           <div>
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-all text-lg font-semibold"
+              disabled={isLoading}
+              className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-all text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Login as Admin
+              {isLoading ? 'Logging in...' : 'Login as Admin'}
             </button>
           </div>
         </form>
       </div>
 
-      <div className="relative z-10 mt-8 text-white text-sm">
+      <div className="absolute bottom-4 text-white text-sm">
         © 2025 BSIT 2-4
       </div>
     </main>
