@@ -747,24 +747,8 @@ export default function BooksPage() {
             }}
           ></div>
           <div className="bg-white/90 backdrop-blur-sm rounded-lg p-8 max-w-2xl w-full relative z-10 mx-4">
-            <div className="flex justify-between items-start mb-6">
+            <div className="mb-6">
               <h2 className="text-2xl font-semibold text-gray-900">Book Details</h2>
-              <button
-                onClick={() => {
-                  setIsViewModalOpen(false);
-                  setSelectedBook(null);
-                }}
-                className="text-gray-400 hover:text-gray-500"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
             </div>
 
             <div className="grid grid-cols-2 gap-6">
