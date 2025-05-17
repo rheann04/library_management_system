@@ -45,7 +45,7 @@ export default function StudentRegistration() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent form reload if inside a <form>
     if (validateForm()) {
       setIsLoading(true);
       try {
@@ -53,7 +53,7 @@ export default function StudentRegistration() {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Accept': 'application/json',
+            'Accept': 'application/json'
           },
           body: JSON.stringify({
             student_id: formData.studentId,
@@ -63,11 +63,12 @@ export default function StudentRegistration() {
             email: formData.email,
             phone_number: formData.phoneNumber,
             password: formData.password,
-            password_confirmation: formData.confirmPassword,
-          }),
+            password_confirmation: formData.confirmPassword
+          })
         });
 
         const data = await response.json();
+        console.log('Registration response:', data);
 
         if (!response.ok) {
           if (data.errors) {
