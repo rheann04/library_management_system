@@ -1,7 +1,16 @@
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function AdminDropdown({ isOpen, onClose }) {
+  const router = useRouter();
+
   if (!isOpen) return null;
+
+  const handleLogout = () => {
+    // Here you would typically handle logout logic like clearing session/tokens
+    // For now, we'll just redirect to the login page
+    router.push('/Login/Admin_Login');
+  };
 
   return (
     <div className="absolute right-4 top-16 w-80 bg-white rounded-lg shadow-lg z-50 overflow-hidden">
@@ -55,7 +64,10 @@ export default function AdminDropdown({ isOpen, onClose }) {
           </svg>
         </button>
 
-        <button className="w-full px-4 py-3 flex items-center space-x-3 hover:bg-gray-100 transition-colors">
+        <button 
+          onClick={handleLogout}
+          className="w-full px-4 py-3 flex items-center space-x-3 hover:bg-gray-100 transition-colors"
+        >
           <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
             <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
