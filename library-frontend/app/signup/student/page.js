@@ -11,6 +11,7 @@ export default function StudentRegistration() {
     username: '',
     email: '',
     studentId: '',
+    phoneNumber: '',
     password: '',
     confirmPassword: ''
   });
@@ -28,6 +29,7 @@ export default function StudentRegistration() {
       newErrors.email = 'Email is invalid';
     }
     if (!formData.studentId) newErrors.studentId = 'Student ID is required';
+    if (!formData.phoneNumber) newErrors.phoneNumber = 'Phone number is required';
     if (!formData.password) {
       newErrors.password = 'Password is required';
     } else if (formData.password.length < 6) {
@@ -47,14 +49,45 @@ export default function StudentRegistration() {
     if (validateForm()) {
       setIsLoading(true);
       try {
-        // Add your registration logic here
-        console.log('Registration attempt:', formData);
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        // If successful, redirect to login page
+        const response = await fetch('http://127.0.0.1:8000/api/students/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify({
+            student_id: formData.studentId,
+            first_name: formData.firstName,
+            last_name: formData.lastName,
+            username: formData.username,
+            email: formData.email,
+            phone_number: formData.phoneNumber,
+            password: formData.password,
+            password_confirmation: formData.confirmPassword,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          if (data.errors) {
+            // Handle validation errors
+            const newErrors = {};
+            Object.keys(data.errors).forEach(key => {
+              newErrors[key] = data.errors[key][0];
+            });
+            setErrors(newErrors);
+            throw new Error('Please check the form for errors');
+          } else {
+            throw new Error(data.message || 'Registration failed');
+          }
+        }
+
+        alert('Registration successful! Redirecting to login page...');
         router.push('/Login/Student_Login');
       } catch (error) {
         console.error('Registration failed:', error);
+        alert(error.message || 'Registration failed. Please make sure the backend server is running.');
       } finally {
         setIsLoading(false);
       }
@@ -172,6 +205,25 @@ export default function StudentRegistration() {
             />
             {errors.studentId && (
               <p className="text-red-500 text-sm mt-1">{errors.studentId}</p>
+            )}
+          </div>
+
+          <div>
+            <label htmlFor="phoneNumber" className="block text-gray-700 text-sm font-medium mb-2">
+              Phone Number
+            </label>
+            <input
+              id="phoneNumber"
+              type="tel"
+              placeholder="Enter your phone number"
+              value={formData.phoneNumber}
+              onChange={(e) => setFormData({...formData, phoneNumber: e.target.value})}
+              className={`w-full px-4 py-3 rounded-lg bg-white border text-gray-900 focus:ring-2 outline-none transition-all ${
+                errors.phoneNumber ? 'border-red-500 focus:border-red-500 focus:ring-red-200' : 'border-gray-300 focus:border-[#00A9FF] focus:ring-blue-200'
+              }`}
+            />
+            {errors.phoneNumber && (
+              <p className="text-red-500 text-sm mt-1">{errors.phoneNumber}</p>
             )}
           </div>
 
