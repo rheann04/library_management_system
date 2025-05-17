@@ -166,28 +166,28 @@ export default function StudentsPage() {
       <div className="bg-white rounded-xl shadow-lg p-6 text-black">
         <div className="flex justify-between items-center mb-6">
           <form onSubmit={handleSearch} className="flex items-center">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search students..."
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search students..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10 pr-4 py-2 border rounded-l-lg focus:outline-none focus:border-blue-500 text-black w-64"
+            />
+            <svg
+              className="absolute left-3 top-2.5 w-5 h-5 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               />
-              <svg
-                className="absolute left-3 top-2.5 w-5 h-5 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </div>
+            </svg>
+          </div>
             <button 
               type="submit"
               className="px-4 py-2 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700"
@@ -397,81 +397,81 @@ export default function StudentsPage() {
                     className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-white"
                     required
                   />
-                </div>
+              </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Username
-                  </label>
-                  <input
-                    type="text"
-                    name="username"
-                    value={formData.username}
-                    onChange={handleInputChange}
-                    placeholder="Enter your username"
-                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-white"
-                    required
-                  />
-                </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Username
+                </label>
+                <input
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleInputChange}
+                  placeholder="Enter your username"
+                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-white"
+                  required
+                />
+              </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    placeholder="Enter your email"
-                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-white"
-                    required
-                  />
-                </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="Enter your email"
+                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-white"
+                  required
+                />
+              </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Student ID
-                  </label>
-                  <input
-                    type="text"
-                    name="studentId"
-                    value={formData.studentId}
-                    onChange={handleInputChange}
-                    placeholder="Enter your student ID"
-                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-white"
-                    required
-                  />
-                </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Student ID
+                </label>
+                <input
+                  type="text"
+                  name="studentId"
+                  value={formData.studentId}
+                  onChange={handleInputChange}
+                  placeholder="Enter your student ID"
+                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-white"
+                  required
+                />
+              </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    name="phoneNumber"
-                    value={formData.phoneNumber}
-                    onChange={handleInputChange}
-                    placeholder="Enter your phone number"
-                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-white"
-                    required
-                  />
-                </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Phone Number
+                </label>
+                <input
+                  type="tel"
+                  name="phoneNumber"
+                  value={formData.phoneNumber}
+                  onChange={handleInputChange}
+                  placeholder="Enter your phone number"
+                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-white"
+                  required
+                />
+              </div>
 
                 <div className="col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleInputChange}
-                    placeholder="Enter your password"
-                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-white"
-                    required
-                  />
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  placeholder="Enter your password"
+                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-white"
+                  required
+                />
                 </div>
               </div>
 
