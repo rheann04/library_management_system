@@ -9,6 +9,8 @@ export default function StudentDashboard() {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [sortBy, setSortBy] = useState('title');
   const [sortOrder, setSortOrder] = useState('asc');
+  const [selectedBook, setSelectedBook] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Sample books data
   const books = [
@@ -55,8 +57,8 @@ export default function StudentDashboard() {
   };
 
   const handleViewDetails = (book) => {
-    // Here you would handle viewing book details
-    console.log('Viewing details for:', book);
+    setSelectedBook(book);
+    setIsModalOpen(true);
   };
 
   const handleBorrowRequest = (book) => {
@@ -72,6 +74,100 @@ export default function StudentDashboard() {
 
   return (
     <StudentLayout>
+      {/* Book Details Modal */}
+      {isModalOpen && selectedBook && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="fixed inset-0 bg-gray-500 opacity-30"></div>
+          <div className="p-6 border w-[750px] shadow-lg rounded-lg bg-white z-50">
+            <div className="mb-4">
+              <h2 className="text-xl font-semibold">Book Details</h2>
+            </div>
+
+            <div className="grid grid-cols-2 gap-6">
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-base font-medium mb-2">Basic Information</h3>
+                  <div className="space-y-2">
+                    <div>
+                      <label className="text-sm text-gray-600">Title:</label>
+                      <p className="text-gray-900 text-sm">{selectedBook.title}</p>
+                    </div>
+                    <div>
+                      <label className="text-sm text-gray-600">Author:</label>
+                      <p className="text-gray-900 text-sm">{selectedBook.author}</p>
+                    </div>
+                    <div>
+                      <label className="text-sm text-gray-600">ISBN:</label>
+                      <p className="text-gray-900 text-sm">{selectedBook.isbn}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-base font-medium mb-2">Publishing Details</h3>
+                  <div className="space-y-2">
+                    <div>
+                      <label className="text-sm text-gray-600">Publisher:</label>
+                      <p className="text-gray-900 text-sm">{selectedBook.publisher}</p>
+                    </div>
+                    <div>
+                      <label className="text-sm text-gray-600">Published Year:</label>
+                      <p className="text-gray-900 text-sm">{selectedBook.publishedYear}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-base font-medium mb-2">Status Information</h3>
+                  <div className="space-y-2">
+                    <div>
+                      <label className="text-sm text-gray-600">Status:</label>
+                      <span
+                        className={`ml-2 inline-block px-2 py-0.5 rounded-full text-xs font-medium ${
+                          selectedBook.status === 'Available'
+                            ? 'bg-green-100 text-green-800'
+                            : 'bg-yellow-100 text-yellow-800'
+                        }`}
+                      >
+                        {selectedBook.status}
+                      </span>
+                    </div>
+                    <div>
+                      <label className="text-sm text-gray-600">Number of Copies:</label>
+                      <p className="text-gray-900 text-sm">{selectedBook.copies}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-base font-medium mb-2">Description</h3>
+                  <p className="text-gray-700 text-sm">{selectedBook.description}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 pt-3 border-t border-gray-200 flex justify-end space-x-3">
+              {selectedBook.status === 'Available' && (
+                <button
+                  onClick={() => handleBorrowRequest(selectedBook)}
+                  className="px-3 py-1.5 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  Borrow Book
+                </button>
+              )}
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="px-3 py-1.5 text-sm bg-red-600 text-white rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="mb-8">
         <h1 className="text-3xl font-semibold text-gray-900">Library Books</h1>
         <p className="text-gray-600">Browse and borrow books from our collection</p>
