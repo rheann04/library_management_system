@@ -34,7 +34,7 @@ export default function AdminLogin() {
         // Simulate API call
         await new Promise(resolve => setTimeout(resolve, 1000));
         // If successful, redirect to admin dashboard
-        router.push('/dashboard/admin');
+        router.push('/admin/dashboard');
       } catch (error) {
         console.error('Login failed:', error);
       } finally {
