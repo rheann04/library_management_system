@@ -43,17 +43,6 @@ export default function AdminDropdown({ isOpen, onClose }) {
 
       <div className="p-4 text-xs text-gray-500 border-t">
         <div className="flex flex-wrap gap-x-2">
-          <button className="hover:underline">Privacy</button>
-          <span>·</span>
-          <button className="hover:underline">Terms</button>
-          <span>·</span>
-          <button className="hover:underline">Advertising</button>
-          <span>·</span>
-          <button className="hover:underline">Ad Choices</button>
-          <span>·</span>
-          <button className="hover:underline">Cookies</button>
-          <span>·</span>
-          <button className="hover:underline">More</button>
         </div>
         <div className="mt-2">Library Management © 2024</div>
       </div>
