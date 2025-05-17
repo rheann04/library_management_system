@@ -37,13 +37,13 @@ export default function Home() {
         <div className="flex flex-col gap-4">
           <button
             onClick={handleAdminClick}
-            className="bg-blue-600 text-white py-2 px-8 rounded-lg hover:bg-blue-700 transition-all hover:scale-105 font-semibold text-lg"
+            className="bg-blue-600 text-white py-3 px-8 rounded-lg hover:bg-blue-700 transition-all hover:scale-105 font-semibold text-lg disabled:opacity-50"
           >
             Admin
           </button>
           <button
             onClick={handleStudentClick}
-            className="bg-green-600 text-white py-2 px-8 rounded-lg hover:bg-green-700 transition-all hover:scale-105 font-semibold text-lg"
+            className="bg-green-600 text-white py-3 px-8 rounded-lg hover:bg-green-700 transition-all hover:scale-105 font-semibold text-lg disabled:opacity-50"
           >
             Student
           </button>

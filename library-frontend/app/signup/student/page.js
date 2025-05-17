@@ -266,18 +266,18 @@ export default function StudentRegistration() {
             )}
           </div>
 
-          <div className="flex gap-4 pt-4">
+          <div className="flex gap-4 pt-3">
             <button
               type="button"
               onClick={() => router.push('/Login/Student_Login')}
-              className="flex-1 bg-gray-500 text-white py-3 px-6 rounded-lg hover:bg-gray-600 transition-all text-lg font-semibold"
+              className="flex-1 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition-all text-lg font-semibold"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isLoading}
-              className="flex-1 bg-[#00A9FF] text-white py-3 px-6 rounded-lg hover:bg-blue-600 transition-all text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 bg-[#00A9FF] text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-all text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? 'Registering...' : 'Register'}
             </button>

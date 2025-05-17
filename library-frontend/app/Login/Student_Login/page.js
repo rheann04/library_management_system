@@ -119,21 +119,31 @@ export default function StudentLogin() {
             </button>
           </div>
 
-          <div className="flex gap-4">
+          <div className="flex gap-3">
             <button
               type="button"
               onClick={handleSignUp}
               disabled={isLoading}
-              className="flex-1 bg-[#00A9FF] text-white py-3 px-6 rounded-lg hover:bg-blue-600 transition-all text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 bg-[#00A9FF] text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-all text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Sign Up
             </button>
             <button
               type="submit"
               disabled={isLoading}
-              className="flex-1 bg-[#00A9FF] text-white py-3 px-6 rounded-lg hover:bg-blue-600 transition-all text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 bg-[#00A9FF] text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-all text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? 'Logging in...' : 'Login'}
+            </button>
+          </div>
+
+          <div className="mt-3">
+            <button
+              type="button"
+              onClick={() => router.push('/Login/Admin_Login')}
+              className="w-full bg-[#00A9FF] text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-all text-lg font-semibold"
+            >
+              Not a student? Switch to Admin
             </button>
           </div>
         </form>
