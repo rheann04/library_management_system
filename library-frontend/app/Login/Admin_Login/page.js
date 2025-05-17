@@ -105,23 +105,21 @@ export default function AdminLogin() {
             )}
           </div>
 
-          <div className="text-center">
-            <button
-              type="button"
-              onClick={handleForgotPassword}
-              className="text-blue-600 hover:underline"
-            >
-              
-            </button>
-          </div>
-
-          <div>
+          <div className="flex flex-col space-y-4">
             <button
               type="submit"
               disabled={isLoading}
               className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-all text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? 'Logging in...' : 'Login as Admin'}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => router.push('/Login/Student_Login')}
+              className="w-full bg-gray-100 text-gray-700 py-3 px-6 rounded-lg hover:bg-gray-200 transition-all text-lg font-semibold border border-gray-300"
+            >
+              Not an admin? Switch to Student User
             </button>
           </div>
         </form>
