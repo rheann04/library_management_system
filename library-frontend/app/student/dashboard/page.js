@@ -108,7 +108,7 @@ export default function StudentDashboard() {
             <div className="flex justify-center">
               <button
                 onClick={() => setIsWelcomeModalOpen(false)}
-                className="px-6 py-2 bg-[#1A237E] text-white rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-6 py-2 bg-[#1A237E] text-white rounded-lg hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 Get Started
               </button>
@@ -211,9 +211,9 @@ export default function StudentDashboard() {
         </div>
       )}
 
-      <div className="mb-8">
-        <h1 className="text-3xl font-semibold text-gray-900">Library Books</h1>
-        <p className="text-gray-600">Browse and borrow books from our collection</p>
+      <div className="mb-8 text-center">
+        <h1 className="text-3xl font-semibold text-black-900 opacity-100">Library Books</h1>
+        <p className="text-black-600 opacity-100">Browse and borrow books from our collection</p>
       </div>
 
       <div className="bg-white rounded-xl shadow-lg p-6">

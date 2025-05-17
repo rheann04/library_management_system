@@ -16,7 +16,7 @@ export default function AdminLayout({ children }) {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
-          opacity: '0.6'
+          opacity: '0.5'
         }}
       />
 
@@ -96,7 +96,7 @@ export default function AdminLayout({ children }) {
         </main>
 
         {/* Footer */}
-        <div className="p-4 text-center text-gray-600 text-sm">
+        <div className="p-4 text-center text-gray-600 text-sm opacity-100 relative z-20 bg-white">
           © 2025 BSIT 2-4
         </div>
       </div>
