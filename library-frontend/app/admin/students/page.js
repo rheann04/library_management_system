@@ -185,9 +185,9 @@ export default function StudentsPage() {
 
   return (
     <>
-      <div className="mb-8 text-black">
+      <div className="mb-8 text-black flex flex-col items-center">
         <h1 className="text-3xl font-semibold">Students Management</h1>
-        <p className="text-black/70">Manage student accounts and borrowing records</p>
+        <p className="text-black">Manage student accounts and borrowing records</p>
       </div>
 
       <div className="bg-white rounded-xl shadow-lg p-6 text-black">

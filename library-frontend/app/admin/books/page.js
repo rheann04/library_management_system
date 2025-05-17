@@ -161,9 +161,9 @@ export default function BooksPage() {
 
   return (
     <>
-      <div className="mb-8 text-black">
+      <div className="mb-8 text-black flex flex-col items-center">
         <h1 className="text-3xl font-semibold">Books Management</h1>
-        <p className="text-black/70">Manage your library's book collection</p>
+        <p className="text-black">Manage your library's book collection</p>
       </div>
 
       <div className="bg-white rounded-xl shadow-lg p-6 text-black">
