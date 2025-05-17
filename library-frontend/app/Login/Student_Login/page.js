@@ -81,7 +81,7 @@ export default function StudentLogin() {
               placeholder="Enter your email or username"
               value={formData.email}
               onChange={(e) => setFormData({...formData, email: e.target.value})}
-              className={`w-full px-4 py-3 rounded-lg bg-white/50 border focus:ring-2 outline-none transition-all ${
+              className={`w-full px-4 py-3 rounded-lg bg-white border text-gray-900 focus:ring-2 outline-none transition-all ${
                 errors.email ? 'border-red-500 focus:border-red-500 focus:ring-red-200' : 'border-gray-300 focus:border-[#00A9FF] focus:ring-blue-200'
               }`}
             />
@@ -100,7 +100,7 @@ export default function StudentLogin() {
               placeholder="Enter your password"
               value={formData.password}
               onChange={(e) => setFormData({...formData, password: e.target.value})}
-              className={`w-full px-4 py-3 rounded-lg bg-white/50 border focus:ring-2 outline-none transition-all ${
+              className={`w-full px-4 py-3 rounded-lg bg-white border text-gray-900 focus:ring-2 outline-none transition-all ${
                 errors.password ? 'border-red-500 focus:border-red-500 focus:ring-red-200' : 'border-gray-300 focus:border-[#00A9FF] focus:ring-blue-200'
               }`}
             />

@@ -75,7 +75,7 @@ export default function AdminLogin() {
               placeholder="Enter your username"
               value={formData.username}
               onChange={(e) => setFormData({...formData, username: e.target.value})}
-              className={`w-full px-4 py-3 rounded-lg bg-white/50 border focus:ring-2 outline-none transition-all ${
+              className={`w-full px-4 py-3 rounded-lg bg-white border text-gray-900 focus:ring-2 outline-none transition-all ${
                 errors.username ? 'border-red-500 focus:border-red-500 focus:ring-red-200' : 'border-gray-300 focus:border-blue-500 focus:ring-blue-200'
               }`}
               disabled={isLoading}
@@ -95,7 +95,7 @@ export default function AdminLogin() {
               placeholder="Enter your password"
               value={formData.password}
               onChange={(e) => setFormData({...formData, password: e.target.value})}
-              className={`w-full px-4 py-3 rounded-lg bg-white/50 border focus:ring-2 outline-none transition-all ${
+              className={`w-full px-4 py-3 rounded-lg bg-white border text-gray-900 focus:ring-2 outline-none transition-all ${
                 errors.password ? 'border-red-500 focus:border-red-500 focus:ring-red-200' : 'border-gray-300 focus:border-blue-500 focus:ring-blue-200'
               }`}
               disabled={isLoading}
