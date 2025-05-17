@@ -3,13 +3,25 @@ import Link from 'next/link';
 import AdminDropdown from './AdminDropdown';
 
 export default function AdminLayout({ children }) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-gray-100 relative">
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: 'url("/Library.jpg")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+          opacity: '0.6'
+        }}
+      />
+
       {/* Sidebar */}
-      <div className={`bg-[#1A237E] text-white w-64 min-h-screen ${isSidebarOpen ? '' : 'hidden'}`}>
+      <div className={`bg-[#1A237E] text-white w-64 min-h-screen relative z-10 ${isSidebarOpen ? '' : 'hidden'}`}>
         <div className="p-4">
           <h2 className="text-2xl font-semibold mb-6">Library Admin</h2>
           <nav>
@@ -42,7 +54,7 @@ export default function AdminLayout({ children }) {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 overflow-x-hidden overflow-y-auto">
+      <div className="flex-1 overflow-x-hidden overflow-y-auto relative z-10">
         {/* Top Navigation */}
         <header className="bg-white shadow-md">
           <div className="flex items-center justify-between px-6 py-4">
@@ -82,6 +94,11 @@ export default function AdminLayout({ children }) {
         <main className="p-6">
           {children}
         </main>
+
+        {/* Footer */}
+        <div className="p-4 text-center text-gray-600 text-sm">
+          © 2025 BSIT 2-4
+        </div>
       </div>
     </div>
   );

@@ -11,6 +11,7 @@ export default function StudentDashboard() {
   const [sortOrder, setSortOrder] = useState('asc');
   const [selectedBook, setSelectedBook] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(true);
 
   // Sample books data
   const books = [
@@ -74,6 +75,48 @@ export default function StudentDashboard() {
 
   return (
     <StudentLayout>
+      {/* Welcome Modal */}
+      {isWelcomeModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="fixed inset-0 bg-gray-500 opacity-30"></div>
+          <div className="p-8 border w-[600px] shadow-lg rounded-lg bg-white z-50">
+            <div className="text-center mb-6">
+              <h2 className="text-3xl font-bold text-[#1A237E] mb-4">Library Books</h2>
+              <p className="text-gray-600 text-lg">Browse and borrow books from our collection</p>
+            </div>
+
+            <div className="space-y-4 mb-6">
+              <div className="p-4 bg-blue-50 rounded-lg">
+                <h3 className="text-lg font-semibold text-blue-800 mb-2">Welcome to the Library Portal</h3>
+                <p className="text-gray-700">
+                  Here you can explore our extensive collection of books, check their availability, 
+                  and request to borrow them. Use the search and filter options to find exactly what you're looking for.
+                </p>
+              </div>
+              
+              <div className="p-4 bg-green-50 rounded-lg">
+                <h3 className="text-lg font-semibold text-green-800 mb-2">How to Borrow</h3>
+                <ul className="list-disc list-inside text-gray-700 space-y-1">
+                  <li>Browse through the available books</li>
+                  <li>Click on a book to view its details</li>
+                  <li>Click the "Borrow" button if the book is available</li>
+                  <li>Pick up your book from the library within 24 hours</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="flex justify-center">
+              <button
+                onClick={() => setIsWelcomeModalOpen(false)}
+                className="px-6 py-2 bg-[#1A237E] text-white rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                Get Started
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Book Details Modal */}
       {isModalOpen && selectedBook && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
