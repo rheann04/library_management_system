@@ -111,7 +111,7 @@ export default function AdminLogin() {
               onClick={handleForgotPassword}
               className="text-blue-600 hover:underline"
             >
-              Forgot Password? Contact System Administrator
+              
             </button>
           </div>
 
