@@ -9,6 +9,8 @@ export default function StudentsPage() {
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [deleteVerification, setDeleteVerification] = useState('');
+  const [sortBy, setSortBy] = useState('firstName');
+  const [sortOrder, setSortOrder] = useState('asc');
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -47,12 +49,31 @@ export default function StudentsPage() {
     { id: 12, firstName: 'Sophia', lastName: 'White', username: 'sophiaw', studentId: 'STU012', email: 'sophia.white@example.com', booksLoaned: 3, phoneNumber: '5556667777' },
   ];
 
+  // Sort students
+  const sortedStudents = [...students].sort((a, b) => {
+    let aValue, bValue;
+    
+    if (sortBy === 'name') {
+      aValue = `${a.firstName} ${a.lastName}`.toLowerCase();
+      bValue = `${b.firstName} ${b.lastName}`.toLowerCase();
+    } else {
+      aValue = a[sortBy].toString().toLowerCase();
+      bValue = b[sortBy].toString().toLowerCase();
+    }
+    
+    if (sortOrder === 'asc') {
+      return aValue.localeCompare(bValue);
+    } else {
+      return bValue.localeCompare(aValue);
+    }
+  });
+
   // Pagination calculations
-  const totalItems = students.length;
+  const totalItems = sortedStudents.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = students.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = sortedStudents.slice(indexOfFirstItem, indexOfLastItem);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -156,6 +177,12 @@ export default function StudentsPage() {
     setCurrentPage(1); // Reset to first page when changing items per page
   };
 
+  const handleSortChange = (e) => {
+    const [newSortBy, newSortOrder] = e.target.value.split('-');
+    setSortBy(newSortBy);
+    setSortOrder(newSortOrder);
+  };
+
   return (
     <>
       <div className="mb-8 text-black">
@@ -165,36 +192,58 @@ export default function StudentsPage() {
 
       <div className="bg-white rounded-xl shadow-lg p-6 text-black">
         <div className="flex justify-between items-center mb-6">
-          <form onSubmit={handleSearch} className="flex items-center">
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search students..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 pr-4 py-2 border rounded-l-lg focus:outline-none focus:border-blue-500 text-black w-64"
-            />
-            <svg
-              className="absolute left-3 top-2.5 w-5 h-5 text-gray-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
+          <div className="flex items-center space-x-4">
+            <form onSubmit={handleSearch} className="flex items-center">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search students..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 pr-4 py-2 border rounded-l-lg focus:outline-none focus:border-blue-500 text-black w-64"
+                />
+                <svg
+                  className="absolute left-3 top-2.5 w-5 h-5 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+              </div>
+              <button 
+                type="submit"
+                className="px-4 py-2 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700"
+              >
+                Search
+              </button>
+            </form>
+
+            <div className="flex items-center space-x-2">
+              <label htmlFor="sort" className="text-sm font-medium text-gray-700">Sort by:</label>
+              <select
+                id="sort"
+                value={`${sortBy}-${sortOrder}`}
+                onChange={handleSortChange}
+                className="rounded-md border border-gray-300 py-2 px-3 text-sm focus:outline-none focus:border-blue-500"
+              >
+                <option value="name-asc">Name (A-Z)</option>
+                <option value="name-desc">Name (Z-A)</option>
+                <option value="studentId-asc">Student ID (A-Z)</option>
+                <option value="studentId-desc">Student ID (Z-A)</option>
+                <option value="booksLoaned-asc">Books Borrowed (Low to High)</option>
+                <option value="booksLoaned-desc">Books Borrowed (High to Low)</option>
+                <option value="email-asc">Email (A-Z)</option>
+                <option value="email-desc">Email (Z-A)</option>
+              </select>
+            </div>
           </div>
-            <button 
-              type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700"
-            >
-              Search
-            </button>
-          </form>
+
           <button 
             onClick={() => setIsModalOpen(true)}
             className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
@@ -397,81 +446,81 @@ export default function StudentsPage() {
                     className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-white"
                     required
                   />
-              </div>
+                </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Username
-                </label>
-                <input
-                  type="text"
-                  name="username"
-                  value={formData.username}
-                  onChange={handleInputChange}
-                  placeholder="Enter your username"
-                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-white"
-                  required
-                />
-              </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Username
+                  </label>
+                  <input
+                    type="text"
+                    name="username"
+                    value={formData.username}
+                    onChange={handleInputChange}
+                    placeholder="Enter your username"
+                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-white"
+                    required
+                  />
+                </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  placeholder="Enter your email"
-                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-white"
-                  required
-                />
-              </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    placeholder="Enter your email"
+                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-white"
+                    required
+                  />
+                </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Student ID
-                </label>
-                <input
-                  type="text"
-                  name="studentId"
-                  value={formData.studentId}
-                  onChange={handleInputChange}
-                  placeholder="Enter your student ID"
-                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-white"
-                  required
-                />
-              </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Student ID
+                  </label>
+                  <input
+                    type="text"
+                    name="studentId"
+                    value={formData.studentId}
+                    onChange={handleInputChange}
+                    placeholder="Enter your student ID"
+                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-white"
+                    required
+                  />
+                </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  name="phoneNumber"
-                  value={formData.phoneNumber}
-                  onChange={handleInputChange}
-                  placeholder="Enter your phone number"
-                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-white"
-                  required
-                />
-              </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    name="phoneNumber"
+                    value={formData.phoneNumber}
+                    onChange={handleInputChange}
+                    placeholder="Enter your phone number"
+                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-white"
+                    required
+                  />
+                </div>
 
                 <div className="col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  placeholder="Enter your password"
-                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-white"
-                  required
-                />
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    placeholder="Enter your password"
+                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-white"
+                    required
+                  />
                 </div>
               </div>
 

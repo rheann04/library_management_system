@@ -60,7 +60,7 @@ export default function AdminLogin() {
       <div className="absolute inset-0 bg-black/30" />
 
       <div className="relative z-10 bg-white/80 backdrop-blur-sm p-8 rounded-xl shadow-2xl max-w-md w-full mx-4">
-        <h1 className="text-3xl font-bold mb-8 text-center text-blue-600">
+        <h1 className="text-3xl font-bold mb-8 text-center text-[#00A9FF]">
           Admin Login
         </h1>
         
@@ -105,19 +105,19 @@ export default function AdminLogin() {
             )}
           </div>
 
-          <div className="flex flex-col space-y-3">
+          <div className="flex flex-col space-y-2">
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-[#00A9FF] text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-all text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-[Blue] text-white py-2 px-2 rounded-lg hover:bg-green-600 transition-all text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLoading ? 'Logging in...' : 'Login as Admin'}
+              {isLoading ? 'Logging in...' : 'Login'}
             </button>
 
             <button
               type="button"
               onClick={() => router.push('/Login/Student_Login')}
-              className="w-full bg-[#00A9FF] text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-all text-lg font-semibold"
+              className="w-full bg-[#00A9FF] text-white py-0 px-2 rounded-lg hover:bg-green-600 transition-all text-lg font-semibold"
             >
               Not an admin? Switch to Student User
             </button>

@@ -34,7 +34,7 @@ export default function StudentLogin() {
         // Simulate API call
         await new Promise(resolve => setTimeout(resolve, 1000));
         // If successful, redirect to student dashboard
-        router.push('/dashboard/student');
+        router.push('/student/dashboard');
       } catch (error) {
         console.error('Login failed:', error);
       } finally {
@@ -119,19 +119,19 @@ export default function StudentLogin() {
             </button>
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex gap-2">
             <button
               type="button"
               onClick={handleSignUp}
               disabled={isLoading}
-              className="flex-1 bg-[#00A9FF] text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-all text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 bg-[#00A9FF] text-white py-2 px-2 rounded-lg hover:bg-green-600 transition-all text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Sign Up
             </button>
             <button
               type="submit"
               disabled={isLoading}
-              className="flex-1 bg-[#00A9FF] text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-all text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 bg-[Blue] text-white py-2 px-2 rounded-lg hover:bg-green-600 transition-all text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? 'Logging in...' : 'Login'}
             </button>
@@ -141,7 +141,7 @@ export default function StudentLogin() {
             <button
               type="button"
               onClick={() => router.push('/Login/Admin_Login')}
-              className="w-full bg-[#00A9FF] text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-all text-lg font-semibold"
+              className="w-full bg-[#00A9FF] text-white py-0 px-2 rounded-lg hover:bg-green-600 transition-all text-lg font-semibold"
             >
               Not a student? Switch to Admin
             </button>

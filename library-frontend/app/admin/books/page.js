@@ -6,6 +6,8 @@ export default function BooksPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [sortBy, setSortBy] = useState('title');
+  const [sortOrder, setSortOrder] = useState('asc');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -37,12 +39,24 @@ export default function BooksPage() {
     { id: 10, title: 'Brave New World', author: 'Aldous Huxley', isbn: '978-0060850524', status: 'Available', publishedYear: '1932', publisher: 'Chatto & Windus', copies: 4, description: 'A dystopian social science fiction novel.' },
   ];
 
+  // Sort books
+  const sortedBooks = [...books].sort((a, b) => {
+    const aValue = a[sortBy].toString().toLowerCase();
+    const bValue = b[sortBy].toString().toLowerCase();
+    
+    if (sortOrder === 'asc') {
+      return aValue.localeCompare(bValue);
+    } else {
+      return bValue.localeCompare(aValue);
+    }
+  });
+
   // Pagination calculations
-  const totalItems = books.length;
+  const totalItems = sortedBooks.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = books.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = sortedBooks.slice(indexOfFirstItem, indexOfLastItem);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -58,6 +72,12 @@ export default function BooksPage() {
     e.preventDefault();
     // Here you would typically handle the search functionality
     console.log('Searching for:', searchQuery);
+  };
+
+  const handleSortChange = (e) => {
+    const [newSortBy, newSortOrder] = e.target.value.split('-');
+    setSortBy(newSortBy);
+    setSortOrder(newSortOrder);
   };
 
   const handleInputChange = (e) => {
@@ -148,36 +168,60 @@ export default function BooksPage() {
 
       <div className="bg-white rounded-xl shadow-lg p-6 text-black">
         <div className="flex justify-between items-center mb-6">
-          <form onSubmit={handleSearch} className="flex items-center">
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search books..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 pr-4 py-2 border rounded-l-lg focus:outline-none focus:border-blue-500 text-black w-64"
-            />
-            <svg
-              className="absolute left-3 top-2.5 w-5 h-5 text-gray-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
+          <div className="flex items-center space-x-4">
+            <form onSubmit={handleSearch} className="flex items-center">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search books..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 pr-4 py-2 border rounded-l-lg focus:outline-none focus:border-blue-500 text-black w-64"
+                />
+                <svg
+                  className="absolute left-3 top-2.5 w-5 h-5 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+              </div>
+              <button 
+                type="submit"
+                className="px-4 py-2 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700"
+              >
+                Search
+              </button>
+            </form>
+
+            <div className="flex items-center space-x-2">
+              <label htmlFor="sort" className="text-sm font-medium text-gray-700">Sort by:</label>
+              <select
+                id="sort"
+                value={`${sortBy}-${sortOrder}`}
+                onChange={handleSortChange}
+                className="rounded-md border border-gray-300 py-2 px-3 text-sm focus:outline-none focus:border-blue-500"
+              >
+                <option value="title-asc">Title (A-Z)</option>
+                <option value="title-desc">Title (Z-A)</option>
+                <option value="author-asc">Author (A-Z)</option>
+                <option value="author-desc">Author (Z-A)</option>
+                <option value="publishedYear-asc">Year (Oldest)</option>
+                <option value="publishedYear-desc">Year (Newest)</option>
+                <option value="status-asc">Status (Available)</option>
+                <option value="status-desc">Status (Borrowed)</option>
+                <option value="copies-asc">Copies (Low to High)</option>
+                <option value="copies-desc">Copies (High to Low)</option>
+              </select>
+            </div>
           </div>
-            <button 
-              type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700"
-            >
-              Search
-            </button>
-          </form>
+
           <button 
             onClick={() => setIsModalOpen(true)}
             className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
