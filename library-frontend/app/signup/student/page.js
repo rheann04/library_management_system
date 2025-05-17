@@ -8,6 +8,7 @@ export default function StudentRegistration() {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
+    username: '',
     email: '',
     studentId: '',
     password: '',
@@ -20,6 +21,7 @@ export default function StudentRegistration() {
     const newErrors = {};
     if (!formData.firstName) newErrors.firstName = 'First name is required';
     if (!formData.lastName) newErrors.lastName = 'Last name is required';
+    if (!formData.username) newErrors.username = 'Username is required';
     if (!formData.email) {
       newErrors.email = 'Email is required';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
@@ -114,6 +116,25 @@ export default function StudentRegistration() {
                 <p className="text-red-500 text-sm mt-1">{errors.lastName}</p>
               )}
             </div>
+          </div>
+
+          <div>
+            <label htmlFor="username" className="block text-gray-700 text-sm font-medium mb-2">
+              Username
+            </label>
+            <input
+              id="username"
+              type="text"
+              placeholder="Enter your username"
+              value={formData.username}
+              onChange={(e) => setFormData({...formData, username: e.target.value})}
+              className={`w-full px-4 py-3 rounded-lg bg-white border text-gray-900 focus:ring-2 outline-none transition-all ${
+                errors.username ? 'border-red-500 focus:border-red-500 focus:ring-red-200' : 'border-gray-300 focus:border-[#00A9FF] focus:ring-blue-200'
+              }`}
+            />
+            {errors.username && (
+              <p className="text-red-500 text-sm mt-1">{errors.username}</p>
+            )}
           </div>
 
           <div>
