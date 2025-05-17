@@ -7,7 +7,6 @@ import StudentDropdown from './StudentDropdown';
 export default function StudentLayout({ children }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [isLibraryOpen, setIsLibraryOpen] = useState(false);
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -24,46 +23,6 @@ export default function StudentLayout({ children }) {
               </svg>
               Dashboard
             </Link>
-
-            {/* Library Accordion */}
-            <div>
-              <button
-                onClick={() => setIsLibraryOpen(!isLibraryOpen)}
-                className="w-full flex items-center justify-between p-3 hover:bg-blue-800 rounded-lg"
-              >
-                <div className="flex items-center">
-                  <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                          d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                  </svg>
-                  Library
-                </div>
-                <svg
-                  className={`w-4 h-4 transition-transform ${isLibraryOpen ? 'rotate-180' : ''}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              {isLibraryOpen && (
-                <div className="pl-12 space-y-2">
-                  <Link href="/student/borrowed-books" 
-                        className="block py-2 hover:text-blue-300">
-                    Borrowed Books
-                  </Link>
-                  <Link href="/student/book-history" 
-                        className="block py-2 hover:text-blue-300">
-                    Borrowing History
-                  </Link>
-                  <Link href="/student/fines" 
-                        className="block py-2 hover:text-blue-300">
-                    Fines & Payments
-                  </Link>
-                </div>
-              )}
-            </div>
           </nav>
         </div>
       </div>

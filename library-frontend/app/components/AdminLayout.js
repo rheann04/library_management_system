@@ -59,7 +59,7 @@ export default function AdminLayout({ children }) {
                 <div className="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-semibold">
                   A
                 </div>
-                <span>Admin User</span>
+                <span>Admin</span>
                 <svg
                   className={`w-5 h-5 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}
                   fill="none"
