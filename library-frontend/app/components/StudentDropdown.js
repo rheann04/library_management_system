@@ -9,7 +9,18 @@ export default function StudentDropdown({ isOpen, onClose }) {
   const handleLogout = () => {
     // Here you would typically handle logout logic like clearing session/tokens
     // For now, we'll just redirect to the login page
+    onClose();
     router.push('/Login/Student_Login');
+  };
+
+  const handleProfileClick = () => {
+    onClose();
+    router.push('/student/profile');
+  };
+
+  const handleBorrowedBooksClick = () => {
+    onClose();
+    router.push('/student/borrowed-books');
   };
 
   return (
@@ -28,7 +39,7 @@ export default function StudentDropdown({ isOpen, onClose }) {
 
       <div className="p-2">
         <button
-          onClick={() => router.push('/student/profile')}
+          onClick={handleProfileClick}
           className="w-full text-left px-4 py-2 hover:bg-gray-100 rounded-lg flex items-center space-x-2"
         >
           <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -38,7 +49,7 @@ export default function StudentDropdown({ isOpen, onClose }) {
         </button>
 
         <button
-          onClick={() => router.push('/student/borrowed-books')}
+          onClick={handleBorrowedBooksClick}
           className="w-full text-left px-4 py-2 hover:bg-gray-100 rounded-lg flex items-center space-x-2"
         >
           <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">

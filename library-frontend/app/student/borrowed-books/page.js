@@ -1,8 +1,12 @@
 "use client";
 
+import { useState } from 'react';
 import StudentLayout from '../../components/StudentLayout';
 
 export default function BorrowedBooks() {
+  const [selectedBook, setSelectedBook] = useState(null);
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+
   // Sample borrowed books data - in a real app, this would come from an API or database
   const borrowedBooks = [
     { 
@@ -12,7 +16,14 @@ export default function BorrowedBooks() {
       isbn: '978-0446310789', 
       borrowDate: '2024-05-01', 
       dueDate: '2024-05-15',
-      status: 'On Time'
+      status: 'On Time',
+      description: 'A gripping, heart-wrenching, and wholly remarkable tale of coming-of-age in a South poisoned by virulent prejudice.',
+      publisher: 'Grand Central Publishing',
+      publishedYear: '1960',
+      genre: 'Fiction, Classic',
+      pages: 384,
+      language: 'English',
+      coverImage: '/mockingbird.jpg'
     },
     { 
       id: 2, 
@@ -21,9 +32,21 @@ export default function BorrowedBooks() {
       isbn: '978-0547928227', 
       borrowDate: '2024-05-05', 
       dueDate: '2024-05-19',
-      status: 'Due Soon'
+      status: 'Due Soon',
+      description: 'A glorious account of a magnificent adventure, filled with suspense and seasoned with a quiet humor that is irresistible.',
+      publisher: 'Houghton Mifflin Harcourt',
+      publishedYear: '1937',
+      genre: 'Fantasy, Fiction',
+      pages: 320,
+      language: 'English',
+      coverImage: '/hobbit.jpg'
     }
   ];
+
+  const handleViewBook = (book) => {
+    setSelectedBook(book);
+    setIsViewModalOpen(true);
+  };
 
   return (
     <StudentLayout>
@@ -71,6 +94,7 @@ export default function BorrowedBooks() {
                         <button 
                           className="text-blue-600 hover:text-blue-800"
                           title="View Details"
+                          onClick={() => handleViewBook(book)}
                         >
                           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path
@@ -114,6 +138,104 @@ export default function BorrowedBooks() {
             </div>
           )}
         </div>
+
+        {/* View Book Modal */}
+        {isViewModalOpen && selectedBook && (
+          <div className="fixed inset-0 flex items-center justify-center z-50">
+            <div 
+              className="absolute inset-0 bg-gray-900/50"
+              onClick={() => setIsViewModalOpen(false)}
+            ></div>
+            <div className="bg-white rounded-lg p-6 max-w-3xl w-full relative z-10 mx-4 shadow-xl">
+              <div className="flex justify-between items-start mb-6">
+                <h2 className="text-2xl font-semibold text-gray-900">{selectedBook.title}</h2>
+                <button
+                  onClick={() => setIsViewModalOpen(false)}
+                  className="text-gray-400 hover:text-gray-500"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Book Details in Landscape Format */}
+              <div className="space-y-6">
+                {/* Main Information */}
+                <div className="grid grid-cols-3 gap-6">
+                  <div>
+                    <p className="text-sm text-gray-500">Author</p>
+                    <p className="font-medium">{selectedBook.author}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">ISBN</p>
+                    <p className="font-medium">{selectedBook.isbn}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Publisher</p>
+                    <p className="font-medium">{selectedBook.publisher}</p>
+                  </div>
+                </div>
+
+                {/* Additional Details */}
+                <div className="grid grid-cols-3 gap-6">
+                  <div>
+                    <p className="text-sm text-gray-500">Published Year</p>
+                    <p className="font-medium">{selectedBook.publishedYear}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Genre</p>
+                    <p className="font-medium">{selectedBook.genre}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Language</p>
+                    <p className="font-medium">{selectedBook.language}</p>
+                  </div>
+                </div>
+
+                {/* Borrowing Information */}
+                <div className="grid grid-cols-3 gap-6 bg-gray-50 p-4 rounded-lg">
+                  <div>
+                    <p className="text-sm text-gray-500">Borrow Date</p>
+                    <p className="font-medium">{selectedBook.borrowDate}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Due Date</p>
+                    <p className="font-medium">{selectedBook.dueDate}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Status</p>
+                    <p className={`font-medium ${
+                      selectedBook.status === 'On Time'
+                        ? 'text-green-600'
+                        : 'text-yellow-600'
+                    }`}>{selectedBook.status}</p>
+                  </div>
+                </div>
+
+                {/* Description */}
+                <div>
+                  <p className="text-sm text-gray-500 mb-2">Description</p>
+                  <p className="text-gray-700">{selectedBook.description}</p>
+                </div>
+
+                {/* Return Button */}
+                <div className="flex justify-end">
+                  <button 
+                    className="bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 transition-colors"
+                  >
+                    Return Book
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </StudentLayout>
   );
