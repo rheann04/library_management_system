@@ -4,13 +4,9 @@ import { useRouter } from "next/navigation";
 import Link from 'next/link';
 import { useState } from 'react';
 
-export default function AdminLogin() {
+export default function Features() {
   const router = useRouter();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    emailOrUsername: '',
-    password: ''
-  });
 
   const handleAdminLogin = () => {
     router.push('/Login/Admin_Login');
@@ -18,21 +14,6 @@ export default function AdminLogin() {
 
   const handleStudentLogin = () => {
     router.push('/Login/Student_Login');
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add your login logic here
-    console.log('Admin login attempt:', formData);
-    // Redirect to admin dashboard after successful login
-    router.push('/admin/dashboard');
-  };
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
   };
 
   return (
@@ -105,43 +86,21 @@ export default function AdminLogin() {
         </header>
 
         {/* Page Content */}
-        <main className="p-6 flex justify-center items-center min-h-[calc(100vh-200px)]">
-          <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-            <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">Admin Login</h1>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label htmlFor="emailOrUsername" className="block text-sm font-medium text-gray-700">Email or Username</label>
-                <input
-                  type="text"
-                  id="emailOrUsername"
-                  name="emailOrUsername"
-                  value={formData.emailOrUsername}
-                  onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                  required
-                  placeholder="Enter your email or username"
-                />
-              </div>
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                  required
-                  placeholder="Enter your password"
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
-              >
-                Sign In
-              </button>
-            </form>
+        <main className="p-6">
+          <h1 className="text-3xl font-bold mb-6">Features</h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h2 className="text-xl font-semibold mb-4">Book Management</h2>
+              <p className="text-gray-600">Efficiently manage your library's book collection with easy cataloging and organization tools.</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h2 className="text-xl font-semibold mb-4">Student Records</h2>
+              <p className="text-gray-600">Keep track of student borrowing history and manage library memberships.</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h2 className="text-xl font-semibold mb-4">Borrowing System</h2>
+              <p className="text-gray-600">Streamlined borrowing and returning process with automated notifications.</p>
+            </div>
           </div>
         </main>
 
