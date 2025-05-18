@@ -56,9 +56,9 @@ export default function AdminLayout({ children }) {
       {/* Main Content */}
       <div className="flex-1 overflow-x-hidden overflow-y-auto relative z-10">
         {/* Top Navigation */}
-        <header className="bg-white shadow-md">
+        <header className="bg-[#1A237E] shadow-md">
           <div className="flex items-center justify-between px-6 py-4">
-            <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-gray-500">
+            <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-white hover:text-gray-200">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
@@ -66,7 +66,7 @@ export default function AdminLayout({ children }) {
             <div className="relative">
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="flex items-center space-x-3 text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md"
+                className="flex items-center space-x-3 text-white hover:bg-blue-800 px-3 py-2 rounded-md"
               >
                 <div className="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-semibold">
                   A
