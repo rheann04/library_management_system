@@ -13,9 +13,54 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $books = Book::with(['author', 'category'])->get();
+        $query = Book::with(['author', 'category']);
+
+        // Search by title or ISBN
+        if ($request->has('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('isbn', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+
+        // Filter by author
+        if ($request->has('author_id')) {
+            $query->where('author_id', $request->author_id);
+        }
+
+        // Filter by category
+        if ($request->has('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+
+        // Filter by availability
+        if ($request->has('status')) {
+            $query->where('status', $request->status);
+        }
+
+        // Sort by title, author, or category
+        $sortBy = $request->get('sort_by', 'title');
+        $sortOrder = $request->get('sort_order', 'asc');
+        
+        if ($sortBy === 'author') {
+            $query->join('authors', 'books.author_id', '=', 'authors.id')
+                  ->orderBy('authors.name', $sortOrder)
+                  ->select('books.*');
+        } elseif ($sortBy === 'category') {
+            $query->join('categories', 'books.category_id', '=', 'categories.id')
+                  ->orderBy('categories.name', $sortOrder)
+                  ->select('books.*');
+        } else {
+            $query->orderBy($sortBy, $sortOrder);
+        }
+
+        $perPage = $request->get('per_page', 10);
+        $books = $query->paginate($perPage);
+
         return response()->json($books);
     }
 
