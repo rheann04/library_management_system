@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import Link from 'next/link';
 import { useState } from 'react';
+import React from 'react';
 
 export default function Home() {
   const router = useRouter();
@@ -17,7 +18,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100 relative">
+    <div className="flex flex-col min-h-screen bg-gray-100 relative">
       {/* Background Image */}
       <div 
         className="absolute inset-0 z-0"
@@ -31,7 +32,7 @@ export default function Home() {
       />
 
       {/* Main Content */}
-      <div className="flex-1 overflow-x-hidden overflow-y-auto relative z-10">
+      <div className="flex-1 flex flex-col relative z-10">
         {/* Top Navigation */}
         <header className="bg-[#1A237E] shadow-md">
           <div className="flex items-center justify-between px-6 py-4">
@@ -68,13 +69,13 @@ export default function Home() {
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
                     <button
                       onClick={handleAdminLogin}
-                      className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100"
+                      className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-green-100"
                     >
                       Admin Login
                     </button>
                     <button
                       onClick={handleStudentLogin}
-                      className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100"
+                      className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-green-100"
                     >
                       Student Login
                     </button>
@@ -86,13 +87,31 @@ export default function Home() {
         </header>
 
         {/* Page Content */}
-        <main className="p-6">
-          {/* Add your main content here */}
+        <main className="flex flex-1 items-center justify-center p-6">
+          <HomePage />
         </main>
+      </div>
 
-        {/* Footer */}
-        <div className="p-4 text-center text-black-600 text-sm opacity-100 relative z-20 bg-white">
-          © 2025 BSIT 2-4
+      {/* Footer */}
+      <footer className="p-4 text-center text-black-600 text-sm opacity-100 relative z-20 bg-transparent">
+        © 2025 BSIT 2-4
+      </footer>
+    </div>
+  );
+}
+
+// Extracted component kept here
+function HomePage() {
+  return (
+    <div className="flex flex-col md:flex-row items-center justify-center gap-8 w-full max-w-5xl mx-auto">
+      {/* Illustration */}
+      <img src="/illustration.png" alt="Library Illustration" className="w-64 h-64 object-contain rounded-xl shadow-lg bg-white/80" />
+      <div className="flex flex-col gap-6 items-center md:items-start">
+        <div className="bg-white/90 rounded-2xl px-8 py-6 shadow-lg text-center md:text-left">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 font-serif">Welcome to the <br /><span className="block font-serif">Library Management System</span></h1>
+        </div>
+        <div className="bg-white/90 rounded-2xl px-8 py-6 shadow-lg text-center md:text-left">
+          <p className="text-xl md:text-2xl font-bold font-sans">This is the main page of your library frontend. Start exploring books, managing users, and more</p>
         </div>
       </div>
     </div>
