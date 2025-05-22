@@ -48,7 +48,6 @@ export default function StudentLogin() {
       alert('Network error');
     }
   };
-};
 
   const handleChange = (e) => {
     setFormData({
