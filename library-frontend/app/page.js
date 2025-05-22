@@ -14,8 +14,13 @@ export default function Home() {
     router.push('/Login/Admin_Login');
   };
 
-  const handleStudentLogin = () => {
-    router.push('/Login/Student_Login');
+  const handleStudentLogin = async () => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/student/login`, { ... });
+      router.push('/Login/Student_Login');
+    } catch (error) {
+      console.error('Error logging in:', error);
+    }
   };
 
   return (
