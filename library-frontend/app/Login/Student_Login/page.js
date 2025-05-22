@@ -20,29 +20,34 @@ export default function StudentLogin() {
     router.push('/Login/Student_Login');
   };
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/student/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        // Adjust these keys to match your backend expectations
-        email: formData.emailOrUsername, // or student_id if your backend expects that
-        password: formData.password
-      }),
-    });
-    const data = await res.json();
-    if (res.ok) {
-      // Login successful
-      // You can store a token or user info here if your backend returns it
-      router.push('/student/dashboard');
-    } else {
-      alert(data.message || 'Login failed');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: formData.emailOrUsername,
+          password: formData.password
+        }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        // Store the token
+        localStorage.setItem('token', data.token);
+        // Redirect based on role
+        if (data.user.role === 'admin') {
+          router.push('/admin/dashboard');
+        } else {
+          router.push('/student/dashboard');
+        }
+      } else {
+        alert(data.message || 'Login failed');
+      }
+    } catch (err) {
+      alert('Network error');
     }
-  } catch (err) {
-    alert('Network error');
-  }
+  };
 };
 
   const handleChange = (e) => {
