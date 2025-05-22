@@ -20,13 +20,30 @@ export default function StudentLogin() {
     router.push('/Login/Student_Login');
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add your login logic here
-    console.log('Student login attempt:', formData);
-    // Redirect to student dashboard after successful login
-    router.push('/student/dashboard');
-  };
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const res = await fetch('http://localhost:8000/api/student/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        // Adjust these keys to match your backend expectations
+        email: formData.emailOrUsername, // or student_id if your backend expects that
+        password: formData.password
+      }),
+    });
+    const data = await res.json();
+    if (res.ok) {
+      // Login successful
+      // You can store a token or user info here if your backend returns it
+      router.push('/student/dashboard');
+    } else {
+      alert(data.message || 'Login failed');
+    }
+  } catch (err) {
+    alert('Network error');
+  }
+};
 
   const handleChange = (e) => {
     setFormData({
@@ -146,7 +163,7 @@ export default function StudentLogin() {
                   href="/signup/student" 
                   className="text-blue-600 hover:text-blue-800 text-sm"
                 >
-                  Don't have an account? Create one
+                  Don&apos;t have an account? Create one
                 </Link>
               </div>
             </form>

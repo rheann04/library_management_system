@@ -698,7 +698,7 @@ export default function StudentsPage() {
               </div>
               <h3 className="text-lg font-medium text-gray-900 mb-2">Delete Student Account</h3>
               <p className="text-sm text-gray-500 mb-6">
-                Are you sure you want to delete {selectedStudent.firstName} {selectedStudent.lastName}'s account? This action cannot be undone.
+                Are you sure you want to delete {selectedStudent.firstName} {selectedStudent.lastName}&apos;s account? This action cannot be undone.
               </p>
               <div className="mb-4">
                 <p className="text-sm text-gray-600 mb-2">

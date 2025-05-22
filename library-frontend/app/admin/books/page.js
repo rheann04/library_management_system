@@ -163,7 +163,7 @@ export default function BooksPage() {
     <>
       <div className="mb-8 text-black flex flex-col items-center">
         <h1 className="text-3xl font-semibold">Books Management</h1>
-        <p className="text-black">Manage your library's book collection</p>
+        <p className="text-black">Manage your library&apos;s book collection</p>
       </div>
 
       <div className="bg-white rounded-xl shadow-lg p-6 text-black">
@@ -692,7 +692,7 @@ export default function BooksPage() {
               </div>
               <h3 className="text-lg font-medium text-gray-900 mb-2">Delete Book</h3>
               <p className="text-sm text-gray-500 mb-6">
-                Are you sure you want to delete "{selectedBook.title}"? This action cannot be undone.
+                Are you sure you want to delete &quot;{selectedBook.title}&quot;? This action cannot be undone.
               </p>
               <div className="mb-4">
                 <p className="text-sm text-gray-600 mb-2">

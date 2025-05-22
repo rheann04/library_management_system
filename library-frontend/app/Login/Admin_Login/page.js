@@ -20,13 +20,29 @@ export default function AdminLogin() {
     router.push('/Login/Student_Login');
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add your login logic here
-    console.log('Admin login attempt:', formData);
-    // Redirect to admin dashboard after successful login
-    router.push('/admin/dashboard');
-  };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const res = await fetch('http://localhost:8000/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: formData.emailOrUsername, // your backend expects 'email'
+        password: formData.password
+      }),
+    });
+    const data = await res.json();
+    if (res.ok) {
+      // Login successful
+      // You can store a token or user info here if your backend returns it
+      router.push('/admin/dashboard');
+    } else {
+      alert(data.message || 'Login failed');
+    }
+  } catch (err) {
+    alert('Network error');
+  }
+};
 
   const handleChange = (e) => {
     setFormData({

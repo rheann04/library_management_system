@@ -90,7 +90,7 @@ export default function StudentDashboard() {
                 <h3 className="text-lg font-semibold text-blue-800 mb-2">Welcome to the Library Portal</h3>
                 <p className="text-gray-700">
                   Here you can explore our extensive collection of books, check their availability, 
-                  and request to borrow them. Use the search and filter options to find exactly what you're looking for.
+                  and request to borrow them. Use the search and filter options to find exactly what you&apos;re looking for.
                 </p>
               </div>
               
@@ -99,7 +99,7 @@ export default function StudentDashboard() {
                 <ul className="list-disc list-inside text-gray-700 space-y-1">
                   <li>Browse through the available books</li>
                   <li>Click on a book to view its details</li>
-                  <li>Click the "Borrow" button if the book is available</li>
+                  <li>Click the &quot;Borrow&quot; button if the book is available</li>
                   <li>Pick up your book from the library within 24 hours</li>
                 </ul>
               </div>

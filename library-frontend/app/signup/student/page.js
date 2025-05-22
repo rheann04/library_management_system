@@ -24,11 +24,39 @@ export default function StudentRegistration() {
     router.push('/Login/Student_Login');
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add your registration logic here
-    console.log('Student registration attempt:', formData);
-  };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  // Simple client-side password match check
+  if (formData.password !== formData.confirmPassword) {
+    alert("Passwords do not match!");
+    return;
+  }
+
+  try {
+    const res = await fetch('http://localhost:8000/api/student/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        student_id: formData.studentId,
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        email: formData.email,
+        password: formData.password
+      }),
+    });
+    const data = await res.json();
+    if (res.ok) {
+      // Registration successful
+      alert('Registration successful! Please log in.');
+      router.push('/Login/Student_Login');
+    } else {
+      alert(data.message || 'Registration failed');
+    }
+  } catch (err) {
+    alert('Network error');
+  }
+};
 
   const handleChange = (e) => {
     setFormData({
@@ -57,7 +85,7 @@ export default function StudentRegistration() {
         <header className="bg-[#1A237E] shadow-md">
           <div className="flex items-center justify-between px-6 py-4">
             <div className="text-white text-2xl font-semibold">
-              Library Management System
+              BookWise
             </div>
           </div>
           {/* Navigation Bar */}
