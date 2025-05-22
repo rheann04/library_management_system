@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Link from 'next/link';
 import { useState } from 'react';
 import React from 'react';
+import Image from 'next/image';
 
 export default function Home() {
   const router = useRouter();
@@ -105,13 +106,15 @@ function HomePage() {
   return (
     <div className="flex flex-col md:flex-row items-center justify-center gap-8 w-full max-w-5xl mx-auto">
       {/* Illustration */}
-      <img src="/illustration.png" alt="Library Illustration" className="w-96 h-96 object-contain rounded-xl" />
+      <Image src="/illustration.png" alt="Library Illustration" width={384} height={384} className="w-96 h-96 object-contain rounded-xl" />
       <div className="flex flex-col gap-6 items-center md:items-start">
         <div className="rounded-2xl px-8 py-6 text-center md:text-left">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 font-serif"><span className="block font-serif">BookWise</span></h1>
         </div>
         <div className="rounded-2xl px-8 py-6 text-center md:text-left">
-          <p className="text-xl md:text-2xl font-bold font-sans">is a smart and intuitive Library Management System designed to make organizing, tracking, and accessing books effortless. Whether you're managing a small personal collection or a large institutional library, BookWise helps you stay efficient, informed, and always one step ahead—because a wise library runs on BookWise.</p>
+          <p className="text-xl md:text-2xl font-bold font-sans">
+            is a smart and intuitive Library Management System designed to make organizing, tracking, and accessing books effortless. Whether you&apos;re managing a small personal collection or a large institutional library, BookWise helps you stay efficient, informed, and always one step ahead—because a wise library runs on BookWise.
+          </p>
         </div>
       </div>
     </div>
