@@ -1,6 +1,13 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/page": "app/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
   "/Login/Admin_Login/page": "app/Login/Admin_Login/page.js",
-  "/admin/dashboard/page": "app/admin/dashboard/page.js"
+  "/Login/Student_Login/page": "app/Login/Student_Login/page.js",
+  "/features/page": "app/features/page.js",
+  "/signup/student/page": "app/signup/student/page.js",
+  "/page": "app/page.js",
+  "/student/dashboard/page": "app/student/dashboard/page.js",
+  "/admin/books/page": "app/admin/books/page.js",
+  "/admin/dashboard/page": "app/admin/dashboard/page.js",
+  "/admin/students/page": "app/admin/students/page.js"
 }
