@@ -1,14 +1,6 @@
 "use client";
 
 export default function AdminDashboard() {
-  // Sample statistics data
-  const stats = {
-    totalBooks: 2190,
-    totalStudents: 450,
-    overdue: 23,
-    availableBooks: 1850
-  };
-
   return (
     <>
       <div className="mb-8 flex flex-col items-center">
@@ -23,7 +15,7 @@ export default function AdminDashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm opacity-80">Total Books</p>
-              <h3 className="text-2xl font-bold">{stats.totalBooks}</h3>
+              <h3 className="text-2xl font-bold">0</h3>
             </div>
             <div className="bg-purple-400 rounded-full p-3">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -39,7 +31,7 @@ export default function AdminDashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm opacity-80">Total Students</p>
-              <h3 className="text-2xl font-bold">{stats.totalStudents}</h3>
+              <h3 className="text-2xl font-bold">0</h3>
             </div>
             <div className="bg-green-400 rounded-full p-3">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -55,7 +47,7 @@ export default function AdminDashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm opacity-80">Available Books</p>
-              <h3 className="text-2xl font-bold">{stats.availableBooks}</h3>
+              <h3 className="text-2xl font-bold">0</h3>
             </div>
             <div className="bg-blue-400 rounded-full p-3">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -71,7 +63,7 @@ export default function AdminDashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm opacity-80">Overdue Books</p>
-              <h3 className="text-2xl font-bold">{stats.overdue}</h3>
+              <h3 className="text-2xl font-bold">0</h3>
             </div>
             <div className="bg-red-400 rounded-full p-3">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -97,23 +89,8 @@ export default function AdminDashboard() {
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b hover:bg-gray-50">
-                <td className="py-3 px-4">John Doe</td>
-                <td className="py-3 px-4">The Great Gatsby</td>
-                <td className="py-3 px-4">Borrowed</td>
-                <td className="py-3 px-4">2024-05-15</td>
-              </tr>
-              <tr className="border-b hover:bg-gray-50">
-                <td className="py-3 px-4">Jane Smith</td>
-                <td className="py-3 px-4">To Kill a Mockingbird</td>
-                <td className="py-3 px-4">Returned</td>
-                <td className="py-3 px-4">2024-05-14</td>
-              </tr>
-              <tr className="hover:bg-gray-50">
-                <td className="py-3 px-4">Mike Johnson</td>
-                <td className="py-3 px-4">1984</td>
-                <td className="py-3 px-4">Borrowed</td>
-                <td className="py-3 px-4">2024-05-14</td>
+              <tr>
+                <td colSpan="4" className="py-4 text-center text-gray-500">No recent activity</td>
               </tr>
             </tbody>
           </table>

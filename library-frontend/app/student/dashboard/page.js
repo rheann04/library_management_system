@@ -13,14 +13,8 @@ export default function StudentDashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(true);
 
-  // Sample books data
-  const books = [
-    { id: 1, title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', isbn: '978-0743273565', status: 'Available', publishedYear: '1925', publisher: 'Scribner', copies: 2, description: 'A story of decadence and excess.', genre: 'Literary Fiction' },
-    { id: 2, title: 'To Kill a Mockingbird', author: 'Harper Lee', isbn: '978-0446310789', status: 'Borrowed', publishedYear: '1960', publisher: 'J. B. Lippincott & Co.', copies: 3, description: 'A novel of justice and innocence.', genre: 'Classic Fiction' },
-    { id: 3, title: '1984', author: 'George Orwell', isbn: '978-0451524935', status: 'Available', publishedYear: '1949', publisher: 'Secker and Warburg', copies: 4, description: 'A dystopian social science fiction.', genre: 'Science Fiction' },
-    { id: 4, title: 'Pride and Prejudice', author: 'Jane Austen', isbn: '978-0141439518', status: 'Available', publishedYear: '1813', publisher: 'T. Egerton, Whitehall', copies: 2, description: 'A romantic novel of manners.', genre: 'Romance' },
-    { id: 5, title: 'The Hobbit', author: 'J.R.R. Tolkien', isbn: '978-0547928227', status: 'Borrowed', publishedYear: '1937', publisher: 'George Allen & Unwin', copies: 3, description: 'A fantasy novel.', genre: 'Fantasy' },
-  ];
+  // Initialize empty books array
+  const books = [];
 
   // Sort books
   const sortedBooks = [...books].sort((a, b) => {

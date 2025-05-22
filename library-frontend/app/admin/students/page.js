@@ -32,22 +32,8 @@ export default function StudentsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
-  // Sample students data - in real app this would come from API
-  const students = [
-    { id: 1, firstName: 'John', lastName: 'Doe', username: 'johndoe', studentId: 'STU001', email: 'john.doe@example.com', booksLoaned: 2, phoneNumber: '1234567890' },
-    { id: 2, firstName: 'Jane', lastName: 'Smith', username: 'janesmith', studentId: 'STU002', email: 'jane.smith@example.com', booksLoaned: 1, phoneNumber: '0987654321' },
-    { id: 3, firstName: 'Mike', lastName: 'Johnson', username: 'mikejohn', studentId: 'STU003', email: 'mike.johnson@example.com', booksLoaned: 0, phoneNumber: '5555555555' },
-    // Add more sample data to test pagination
-    { id: 4, firstName: 'Sarah', lastName: 'Wilson', username: 'sarahw', studentId: 'STU004', email: 'sarah.wilson@example.com', booksLoaned: 1, phoneNumber: '1112223333' },
-    { id: 5, firstName: 'James', lastName: 'Brown', username: 'jamesb', studentId: 'STU005', email: 'james.brown@example.com', booksLoaned: 3, phoneNumber: '4445556666' },
-    { id: 6, firstName: 'Emily', lastName: 'Davis', username: 'emilyd', studentId: 'STU006', email: 'emily.davis@example.com', booksLoaned: 0, phoneNumber: '7778889999' },
-    { id: 7, firstName: 'Michael', lastName: 'Miller', username: 'michaelm', studentId: 'STU007', email: 'michael.miller@example.com', booksLoaned: 2, phoneNumber: '3334445555' },
-    { id: 8, firstName: 'Emma', lastName: 'Taylor', username: 'emmat', studentId: 'STU008', email: 'emma.taylor@example.com', booksLoaned: 1, phoneNumber: '6667778888' },
-    { id: 9, firstName: 'William', lastName: 'Anderson', username: 'willa', studentId: 'STU009', email: 'william.anderson@example.com', booksLoaned: 0, phoneNumber: '9990001111' },
-    { id: 10, firstName: 'Olivia', lastName: 'Thomas', username: 'oliviat', studentId: 'STU010', email: 'olivia.thomas@example.com', booksLoaned: 2, phoneNumber: '2223334444' },
-    { id: 11, firstName: 'Daniel', lastName: 'Jackson', username: 'danielj', studentId: 'STU011', email: 'daniel.jackson@example.com', booksLoaned: 1, phoneNumber: '8889990000' },
-    { id: 12, firstName: 'Sophia', lastName: 'White', username: 'sophiaw', studentId: 'STU012', email: 'sophia.white@example.com', booksLoaned: 3, phoneNumber: '5556667777' },
-  ];
+  // Initialize empty students array
+  const students = [];
 
   // Sort students
   const sortedStudents = [...students].sort((a, b) => {
@@ -260,6 +246,7 @@ export default function StudentsPage() {
                 <th className="text-left py-3 px-4 font-semibold">Student ID</th>
                 <th className="text-left py-3 px-4 font-semibold">Email</th>
                 <th className="text-left py-3 px-4 font-semibold">Phone Number</th>
+                <th className="text-left py-3 px-4 font-semibold">Password</th>
                 <th className="text-left py-3 px-4 font-semibold">Books Borrowed</th>
                 <th className="text-left py-3 px-4 font-semibold">Actions</th>
               </tr>
@@ -271,6 +258,7 @@ export default function StudentsPage() {
                   <td className="py-3 px-4">{student.studentId}</td>
                   <td className="py-3 px-4">{student.email}</td>
                   <td className="py-3 px-4">{student.phoneNumber}</td>
+                  <td className="py-3 px-4">{student.password}</td>
                   <td className="py-3 px-4">
                     <span
                       className={`px-2 py-1 rounded-full text-xs ${

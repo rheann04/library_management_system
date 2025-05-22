@@ -25,19 +25,8 @@ export default function BooksPage() {
     copies: '1'
   });
 
-  // Sample books data with more entries
-  const books = [
-    { id: 1, title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', isbn: '978-0743273565', status: 'Available', publishedYear: '1925', publisher: 'Scribner', copies: 2, description: 'A story of decadence and excess.', genre: 'Literary Fiction' },
-    { id: 2, title: 'To Kill a Mockingbird', author: 'Harper Lee', isbn: '978-0446310789', status: 'Borrowed', publishedYear: '1960', publisher: 'J. B. Lippincott & Co.', copies: 3, description: 'A novel of justice and innocence.', genre: 'Classic Fiction' },
-    { id: 3, title: '1984', author: 'George Orwell', isbn: '978-0451524935', status: 'Available', publishedYear: '1949', publisher: 'Secker and Warburg', copies: 4, description: 'A dystopian social science fiction.', genre: 'Science Fiction' },
-    { id: 4, title: 'Pride and Prejudice', author: 'Jane Austen', isbn: '978-0141439518', status: 'Available', publishedYear: '1813', publisher: 'T. Egerton, Whitehall', copies: 2, description: 'A romantic novel of manners.', genre: 'Romance' },
-    { id: 5, title: 'The Hobbit', author: 'J.R.R. Tolkien', isbn: '978-0547928227', status: 'Borrowed', publishedYear: '1937', publisher: 'George Allen & Unwin', copies: 3, description: 'A fantasy novel.', genre: 'Fantasy' },
-    { id: 6, title: 'The Catcher in the Rye', author: 'J.D. Salinger', isbn: '978-0316769488', status: 'Available', publishedYear: '1951', publisher: 'Little, Brown and Company', copies: 1, description: 'A coming-of-age story.', genre: 'Literary Fiction' },
-    { id: 7, title: 'Lord of the Flies', author: 'William Golding', isbn: '978-0399501487', status: 'Available', publishedYear: '1954', publisher: 'Faber and Faber', copies: 2, description: 'A novel about civilization and savagery.', genre: 'Classic Fiction' },
-    { id: 8, title: 'Animal Farm', author: 'George Orwell', isbn: '978-0452284241', status: 'Borrowed', publishedYear: '1945', publisher: 'Secker and Warburg', copies: 3, description: 'An allegorical novella.', genre: 'Political Fiction' },
-    { id: 9, title: 'The Grapes of Wrath', author: 'John Steinbeck', isbn: '978-0143039433', status: 'Available', publishedYear: '1939', publisher: 'The Viking Press', copies: 2, description: 'An American realist novel.', genre: 'Historical Fiction' },
-    { id: 10, title: 'Brave New World', author: 'Aldous Huxley', isbn: '978-0060850524', status: 'Available', publishedYear: '1932', publisher: 'Chatto & Windus', copies: 4, description: 'A dystopian social science fiction novel.', genre: 'Science Fiction' },
-  ];
+  // Initialize empty books array
+  const books = [];
 
   // Sort books
   const sortedBooks = [...books].sort((a, b) => {
