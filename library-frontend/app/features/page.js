@@ -42,17 +42,17 @@ export default function Features() {
           {/* Navigation Bar */}
           <nav className="bg-[#2196F3] text-white">
             <div className="flex space-x-8 px-6 py-3">
-              <Link href="/" className="hover:text-gray-200 transition-colors">
+              <Link href="/" className="hover:text-black hover:underline transition-colors">
                 Home
               </Link>
-              <Link href="/features" className="hover:text-gray-200 transition-colors">
+              <Link href="/features" className="hover:text-black hover:underline transition-colors">
                 Features
               </Link>
               {/* Login Dropdown */}
               <div className="relative">
                 <button 
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  className="hover:text-gray-200 transition-colors flex items-center"
+                  className="hover:text-black hover:underline transition-colors flex items-center"
                 >
                   Login
                   <svg 
