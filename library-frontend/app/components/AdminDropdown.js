@@ -44,7 +44,7 @@ export default function AdminDropdown({ isOpen, onClose }) {
       <div className="p-4 text-xs text-gray-500 border-t">
         <div className="flex flex-wrap gap-x-2">
         </div>
-        <div className="mt-2">Library Management © 2024</div>
+        <div className="mt-2">BookWise © 2024</div>
       </div>
     </div>
   );

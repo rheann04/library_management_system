@@ -81,7 +81,7 @@ export default function StudentDashboard() {
           <div className="fixed inset-0 bg-gray-500 opacity-30"></div>
           <div className="p-8 border w-[600px] shadow-lg rounded-lg bg-white z-50">
             <div className="text-center mb-6">
-              <h2 className="text-3xl font-bold text-[#1A237E] mb-4">Library Books</h2>
+              <h2 className="text-3xl font-bold text-[#1A237E] mb-4">BookWise</h2>
               <p className="text-gray-600 text-lg">Browse and borrow books from our collection</p>
             </div>
 

@@ -38,6 +38,13 @@ export default function StudentDropdown({ isOpen, onClose }) {
           <span>Logout</span>
         </button>
       </div>
+
+      <div className="p-4 text-xs text-gray-500 border-t">
+        <div className="flex flex-wrap gap-x-2">
+        </div>
+        <div className="mt-2">BookWise © 2024</div>
+      </div>
+      
     </div>
   );
 } 

@@ -23,7 +23,7 @@ export default function AdminLayout({ children }) {
       {/* Sidebar */}
       <div className={`bg-[#1A237E] text-white w-64 min-h-screen relative z-10 ${isSidebarOpen ? '' : 'hidden'}`}>
         <div className="p-4">
-          <h2 className="text-2xl font-semibold mb-6">Library Admin</h2>
+          <h2 className="text-2xl font-semibold mb-6">BookWise</h2>
           <nav>
             <Link href="/admin/dashboard" 
                   className="flex items-center p-3 mb-3 hover:bg-blue-800 rounded-lg">

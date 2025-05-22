@@ -37,7 +37,7 @@ export default function Home() {
         <header className="bg-[#1A237E] shadow-md">
           <div className="flex items-center justify-between px-6 py-4">
             <div className="text-white text-2xl font-semibold">
-              Library Management System
+              BookWise
             </div>
           </div>
           {/* Navigation Bar */}
@@ -105,13 +105,13 @@ function HomePage() {
   return (
     <div className="flex flex-col md:flex-row items-center justify-center gap-8 w-full max-w-5xl mx-auto">
       {/* Illustration */}
-      <img src="/illustration.png" alt="Library Illustration" className="w-64 h-64 object-contain rounded-xl shadow-lg bg-white/80" />
+      <img src="/illustration.png" alt="Library Illustration" className="w-96 h-96 object-contain rounded-xl" />
       <div className="flex flex-col gap-6 items-center md:items-start">
-        <div className="bg-white/90 rounded-2xl px-8 py-6 shadow-lg text-center md:text-left">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 font-serif">Welcome to the <br /><span className="block font-serif">Library Management System</span></h1>
+        <div className="rounded-2xl px-8 py-6 text-center md:text-left">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 font-serif"><span className="block font-serif">BookWise</span></h1>
         </div>
-        <div className="bg-white/90 rounded-2xl px-8 py-6 shadow-lg text-center md:text-left">
-          <p className="text-xl md:text-2xl font-bold font-sans">This is the main page of your library frontend. Start exploring books, managing users, and more</p>
+        <div className="rounded-2xl px-8 py-6 text-center md:text-left">
+          <p className="text-xl md:text-2xl font-bold font-sans">is a smart and intuitive Library Management System designed to make organizing, tracking, and accessing books effortless. Whether you're managing a small personal collection or a large institutional library, BookWise helps you stay efficient, informed, and always one step ahead—because a wise library runs on BookWise.</p>
         </div>
       </div>
     </div>
