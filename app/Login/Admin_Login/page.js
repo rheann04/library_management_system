@@ -20,18 +20,11 @@ export default function AdminLogin() {
     router.push('/Login/Student_Login');
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    
-    // Check for direct admin access
-    if (formData.emailOrUsername === 'admin' && formData.password === 'admin') {
-      localStorage.setItem('token', 'admin-token');
-      localStorage.setItem('userRole', 'admin');
-      router.push('/admin/dashboard');
-      return;
-    } else {
-      alert('Invalid admin credentials');
-    }
+    // Set admin role and redirect to admin dashboard
+    localStorage.setItem('userRole', 'admin');
+    router.push('/admin/dashboard');
   };
 
   const handleChange = (e) => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function StudentsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -11,7 +11,208 @@ export default function StudentsPage() {
   const [deleteVerification, setDeleteVerification] = useState('');
   const [sortBy, setSortBy] = useState('firstName');
   const [sortOrder, setSortOrder] = useState('asc');
-  const [students, setStudents] = useState([]);
+  const [students, setStudents] = useState([
+    {
+      _id: '1',
+      firstName: 'John',
+      lastName: 'Smith',
+      username: 'johnsmith',
+      email: 'john.smith@university.edu',
+      studentId: 'STU2024001',
+      phoneNumber: '555-0101',
+      booksBorrowed: 2
+    },
+    {
+      _id: '2',
+      firstName: 'Emma',
+      lastName: 'Johnson',
+      username: 'emmaj',
+      email: 'emma.j@university.edu',
+      studentId: 'STU2024002',
+      phoneNumber: '555-0102',
+      booksBorrowed: 0
+    },
+    {
+      _id: '3',
+      firstName: 'Michael',
+      lastName: 'Brown',
+      username: 'mbrown',
+      email: 'michael.b@university.edu',
+      studentId: 'STU2024003',
+      phoneNumber: '555-0103',
+      booksBorrowed: 3
+    },
+    {
+      _id: '4',
+      firstName: 'Sarah',
+      lastName: 'Davis',
+      username: 'sarahd',
+      email: 'sarah.d@university.edu',
+      studentId: 'STU2024004',
+      phoneNumber: '555-0104',
+      booksBorrowed: 1
+    },
+    {
+      _id: '5',
+      firstName: 'James',
+      lastName: 'Wilson',
+      username: 'jwilson',
+      email: 'james.w@university.edu',
+      studentId: 'STU2024005',
+      phoneNumber: '555-0105',
+      booksBorrowed: 0
+    },
+    {
+      _id: '6',
+      firstName: 'Lisa',
+      lastName: 'Anderson',
+      username: 'landerson',
+      email: 'lisa.a@university.edu',
+      studentId: 'STU2024006',
+      phoneNumber: '555-0106',
+      booksBorrowed: 2
+    },
+    {
+      _id: '7',
+      firstName: 'David',
+      lastName: 'Taylor',
+      username: 'dtaylor',
+      email: 'david.t@university.edu',
+      studentId: 'STU2024007',
+      phoneNumber: '555-0107',
+      booksBorrowed: 1
+    },
+    {
+      _id: '8',
+      firstName: 'Jennifer',
+      lastName: 'Thomas',
+      username: 'jthomas',
+      email: 'jennifer.t@university.edu',
+      studentId: 'STU2024008',
+      phoneNumber: '555-0108',
+      booksBorrowed: 0
+    },
+    {
+      _id: '9',
+      firstName: 'Robert',
+      lastName: 'Jackson',
+      username: 'rjackson',
+      email: 'robert.j@university.edu',
+      studentId: 'STU2024009',
+      phoneNumber: '555-0109',
+      booksBorrowed: 3
+    },
+    {
+      _id: '10',
+      firstName: 'Patricia',
+      lastName: 'White',
+      username: 'pwhite',
+      email: 'patricia.w@university.edu',
+      studentId: 'STU2024010',
+      phoneNumber: '555-0110',
+      booksBorrowed: 1
+    },
+    {
+      _id: '11',
+      firstName: 'William',
+      lastName: 'Harris',
+      username: 'wharris',
+      email: 'william.h@university.edu',
+      studentId: 'STU2024011',
+      phoneNumber: '555-0111',
+      booksBorrowed: 2
+    },
+    {
+      _id: '12',
+      firstName: 'Elizabeth',
+      lastName: 'Martin',
+      username: 'emartin',
+      email: 'elizabeth.m@university.edu',
+      studentId: 'STU2024012',
+      phoneNumber: '555-0112',
+      booksBorrowed: 0
+    },
+    {
+      _id: '13',
+      firstName: 'Richard',
+      lastName: 'Thompson',
+      username: 'rthompson',
+      email: 'richard.t@university.edu',
+      studentId: 'STU2024013',
+      phoneNumber: '555-0113',
+      booksBorrowed: 1
+    },
+    {
+      _id: '14',
+      firstName: 'Susan',
+      lastName: 'Garcia',
+      username: 'sgarcia',
+      email: 'susan.g@university.edu',
+      studentId: 'STU2024014',
+      phoneNumber: '555-0114',
+      booksBorrowed: 3
+    },
+    {
+      _id: '15',
+      firstName: 'Joseph',
+      lastName: 'Martinez',
+      username: 'jmartinez',
+      email: 'joseph.m@university.edu',
+      studentId: 'STU2024015',
+      phoneNumber: '555-0115',
+      booksBorrowed: 0
+    },
+    {
+      _id: '16',
+      firstName: 'Margaret',
+      lastName: 'Robinson',
+      username: 'mrobinson',
+      email: 'margaret.r@university.edu',
+      studentId: 'STU2024016',
+      phoneNumber: '555-0116',
+      booksBorrowed: 2
+    },
+    {
+      _id: '17',
+      firstName: 'Charles',
+      lastName: 'Clark',
+      username: 'cclark',
+      email: 'charles.c@university.edu',
+      studentId: 'STU2024017',
+      phoneNumber: '555-0117',
+      booksBorrowed: 1
+    },
+    {
+      _id: '18',
+      firstName: 'Jessica',
+      lastName: 'Rodriguez',
+      username: 'jrodriguez',
+      email: 'jessica.r@university.edu',
+      studentId: 'STU2024018',
+      phoneNumber: '555-0118',
+      booksBorrowed: 0
+    },
+    {
+      _id: '19',
+      firstName: 'Thomas',
+      lastName: 'Lewis',
+      username: 'tlewis',
+      email: 'thomas.l@university.edu',
+      studentId: 'STU2024019',
+      phoneNumber: '555-0119',
+      booksBorrowed: 3
+    },
+    {
+      _id: '20',
+      firstName: 'Sarah',
+      lastName: 'Lee',
+      username: 'slee',
+      email: 'sarah.l@university.edu',
+      studentId: 'STU2024020',
+      phoneNumber: '555-0120',
+      booksBorrowed: 1
+    }
+  ]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
@@ -34,25 +235,6 @@ export default function StudentsPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-
-  // Fetch students on component mount
-  useEffect(() => {
-    fetchStudents();
-  }, []);
-
-  const fetchStudents = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await studentsAPI.getAll();
-      setStudents(response.data);
-    } catch (err) {
-      setError('Failed to fetch students');
-      console.error('Error fetching students:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   // Sort students
   const sortedStudents = [...students].sort((a, b) => {
@@ -96,73 +278,47 @@ export default function StudentsPage() {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await studentsAPI.create(formData);
-      await fetchStudents(); // Refresh the students list
-      // Reset form and close modal
-      setFormData({
-        firstName: '',
-        lastName: '',
-        username: '',
-        email: '',
-        studentId: '',
-        phoneNumber: '',
-        password: ''
-      });
-      setIsModalOpen(false);
-
-      // Log the action
-      console.log('Admin action:', {
-        action: 'CREATE_STUDENT',
-        studentId: response.data._id,
-        timestamp: new Date().toISOString(),
-        details: { ...formData, password: '[REDACTED]' }
-      });
-    } catch (err) {
-      setError('Failed to create student');
-      console.error('Error creating student:', err);
-    } finally {
-      setLoading(false);
-    }
+    // Add new student to the list
+    const newStudent = {
+      _id: String(students.length + 1),
+      ...formData,
+      booksBorrowed: 0
+    };
+    setStudents(prev => [...prev, newStudent]);
+    // Reset form and close modal
+    setFormData({
+      firstName: '',
+      lastName: '',
+      username: '',
+      email: '',
+      studentId: '',
+      phoneNumber: '',
+      password: ''
+    });
+    setIsModalOpen(false);
   };
 
-  const handleEditSubmit = async (e) => {
+  const handleEditSubmit = (e) => {
     e.preventDefault();
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await studentsAPI.update(selectedStudent._id, editFormData);
-      await fetchStudents(); // Refresh the students list
-      // Reset form and close modal
-      setEditFormData({
-        firstName: '',
-        lastName: '',
-        username: '',
-        email: '',
-        studentId: '',
-        phoneNumber: ''
-      });
-      setIsEditModalOpen(false);
-      setSelectedStudent(null);
-
-      // Log the action
-      console.log('Admin action:', {
-        action: 'UPDATE_STUDENT',
-        studentId: selectedStudent._id,
-        timestamp: new Date().toISOString(),
-        oldData: selectedStudent,
-        newData: editFormData
-      });
-    } catch (err) {
-      setError('Failed to update student');
-      console.error('Error updating student:', err);
-    } finally {
-      setLoading(false);
-    }
+    // Update student in the list
+    setStudents(prev => prev.map(student => 
+      student._id === selectedStudent._id 
+        ? { ...student, ...editFormData }
+        : student
+    ));
+    // Reset form and close modal
+    setEditFormData({
+      firstName: '',
+      lastName: '',
+      username: '',
+      email: '',
+      studentId: '',
+      phoneNumber: ''
+    });
+    setIsEditModalOpen(false);
+    setSelectedStudent(null);
   };
 
   const handleEditClick = (student) => {
@@ -187,28 +343,11 @@ export default function StudentsPage() {
   const handleDeleteSubmit = async () => {
     if (deleteVerification.toLowerCase() !== 'delete') return;
     
-    try {
-      setLoading(true);
-      setError(null);
-      await studentsAPI.delete(selectedStudent._id);
-      await fetchStudents(); // Refresh the students list
-      setIsDeleteModalOpen(false);
-      setSelectedStudent(null);
-      setDeleteVerification('');
-
-      // Log the action
-      console.log('Admin action:', {
-        action: 'DELETE_STUDENT',
-        studentId: selectedStudent._id,
-        timestamp: new Date().toISOString(),
-        deletedStudent: selectedStudent
-      });
-    } catch (err) {
-      setError('Failed to delete student');
-      console.error('Error deleting student:', err);
-    } finally {
-      setLoading(false);
-    }
+    // Remove student from the list
+    setStudents(prev => prev.filter(student => student._id !== selectedStudent._id));
+    setIsDeleteModalOpen(false);
+    setSelectedStudent(null);
+    setDeleteVerification('');
   };
 
   const handleViewClick = (student) => {
@@ -246,12 +385,6 @@ export default function StudentsPage() {
       </div>
 
       <div className="bg-white rounded-xl shadow-lg p-6 text-black">
-        {error && (
-          <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
-            {error}
-          </div>
-        )}
-
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center space-x-4">
             <form onSubmit={handleSearch} className="flex items-center">
@@ -308,81 +441,74 @@ export default function StudentsPage() {
           <button 
             onClick={() => setIsModalOpen(true)}
             className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-            disabled={loading}
           >
-            {loading ? 'Loading...' : 'Add New Student'}
+            Add New Student
           </button>
         </div>
 
-        {loading ? (
-          <div className="flex justify-center items-center py-8">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-          </div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Name
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Student ID
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Email
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Books Borrowed
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
-                  </th>
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Name
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Student ID
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Email
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Books Borrowed
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {currentItems.map((student) => (
+                <tr key={student._id}>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm font-medium text-gray-900">
+                      {student.firstName} {student.lastName}
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-900">{student.studentId}</div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-900">{student.email}</div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-900">{student.booksBorrowed || 0}</div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <button
+                      onClick={() => handleViewClick(student)}
+                      className="text-blue-600 hover:text-blue-900 mr-4"
+                    >
+                      View
+                    </button>
+                    <button
+                      onClick={() => handleEditClick(student)}
+                      className="text-indigo-600 hover:text-indigo-900 mr-4"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDeleteClick(student)}
+                      className="text-red-600 hover:text-red-900"
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {currentItems.map((student) => (
-                  <tr key={student._id}>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
-                        {student.firstName} {student.lastName}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{student.studentId}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{student.email}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{student.booksBorrowed || 0}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <button
-                        onClick={() => handleViewClick(student)}
-                        className="text-blue-600 hover:text-blue-900 mr-4"
-                      >
-                        View
-                      </button>
-                      <button
-                        onClick={() => handleEditClick(student)}
-                        className="text-indigo-600 hover:text-indigo-900 mr-4"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDeleteClick(student)}
-                        className="text-red-600 hover:text-red-900"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+              ))}
+            </tbody>
+          </table>
+        </div>
 
         {/* Pagination */}
         <div className="mt-4 flex justify-between items-center">
@@ -816,13 +942,13 @@ export default function StudentsPage() {
                       <span className="text-sm font-medium text-gray-500">Books Currently Borrowed:</span>
                       <p className="text-base text-gray-900">
                         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                          selectedStudent.booksLoaned === 0
+                          selectedStudent.booksBorrowed === 0
                             ? 'bg-gray-100 text-gray-800'
-                            : selectedStudent.booksLoaned < 3
+                            : selectedStudent.booksBorrowed < 3
                             ? 'bg-gray-200 text-gray-800'
                             : 'bg-gray-300 text-gray-800'
                         }`}>
-                          {selectedStudent.booksLoaned} books
+                          {selectedStudent.booksBorrowed} books
                         </span>
                       </p>
                     </div>

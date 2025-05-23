@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import StudentLayout from '../../components/StudentLayout';
 
 export default function StudentDashboard() {
@@ -12,12 +12,152 @@ export default function StudentDashboard() {
   const [selectedBook, setSelectedBook] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(true);
+  const [borrowSuccess, setBorrowSuccess] = useState(false);
+  const [borrowError, setBorrowError] = useState('');
 
-  // Initialize empty books array
-  const books = [];
+  // Sample books data
+  const [books, setBooks] = useState([
+    {
+      id: 1,
+      title: "The Great Gatsby",
+      author: "F. Scott Fitzgerald",
+      isbn: "9780743273565",
+      genre: "Classic",
+      status: "Available",
+      copies: 3,
+      publisher: "Scribner",
+      publishedYear: "1925",
+      description: "A novel set in the Roaring Twenties."
+    },
+    {
+      id: 2,
+      title: "To Kill a Mockingbird",
+      author: "Harper Lee",
+      isbn: "9780061120084",
+      genre: "Classic",
+      status: "Borrowed",
+      copies: 2,
+      publisher: "J.B. Lippincott & Co.",
+      publishedYear: "1960",
+      description: "A story of racial injustice in the Deep South."
+    },
+    {
+      id: 3,
+      title: "1984",
+      author: "George Orwell",
+      isbn: "9780451524935",
+      genre: "Dystopian",
+      status: "Available",
+      copies: 4,
+      publisher: "Secker & Warburg",
+      publishedYear: "1949",
+      description: "A dystopian novel about totalitarianism."
+    },
+    {
+      id: 4,
+      title: "Pride and Prejudice",
+      author: "Jane Austen",
+      isbn: "9780141439518",
+      genre: "Romance",
+      status: "Available",
+      copies: 5,
+      publisher: "T. Egerton",
+      publishedYear: "1813",
+      description: "A classic romance novel."
+    },
+    {
+      id: 5,
+      title: "The Hobbit",
+      author: "J.R.R. Tolkien",
+      isbn: "9780547928227",
+      genre: "Fantasy",
+      status: "Borrowed",
+      copies: 1,
+      publisher: "George Allen & Unwin",
+      publishedYear: "1937",
+      description: "A fantasy adventure novel."
+    },
+    {
+      id: 6,
+      title: "The Catcher in the Rye",
+      author: "J.D. Salinger",
+      isbn: "9780316769488",
+      genre: "Fiction",
+      status: "Available",
+      copies: 2,
+      publisher: "Little, Brown and Company",
+      publishedYear: "1951",
+      description: "A classic coming-of-age story."
+    },
+    {
+      id: 7,
+      title: "Lord of the Flies",
+      author: "William Golding",
+      isbn: "9780399501487",
+      genre: "Fiction",
+      status: "Available",
+      copies: 3,
+      publisher: "Faber and Faber",
+      publishedYear: "1954",
+      description: "A novel about the dark side of human nature."
+    },
+    {
+      id: 8,
+      title: "The Alchemist",
+      author: "Paulo Coelho",
+      isbn: "9780062315007",
+      genre: "Fiction",
+      status: "Borrowed",
+      copies: 2,
+      publisher: "HarperOne",
+      publishedYear: "1988",
+      description: "A philosophical novel about following your dreams."
+    },
+    {
+      id: 9,
+      title: "Brave New World",
+      author: "Aldous Huxley",
+      isbn: "9780060850524",
+      genre: "Dystopian",
+      status: "Available",
+      copies: 3,
+      publisher: "Harper Perennial",
+      publishedYear: "1932",
+      description: "A dystopian social science fiction novel."
+    },
+    {
+      id: 10,
+      title: "The Little Prince",
+      author: "Antoine de Saint-Exupéry",
+      isbn: "9780156013987",
+      genre: "Fiction",
+      status: "Available",
+      copies: 4,
+      publisher: "Mariner Books",
+      publishedYear: "1943",
+      description: "A poetic tale about a young prince's journey."
+    }
+  ]);
 
-  // Sort books
-  const sortedBooks = [...books].sort((a, b) => {
+  // Filter books based on search query
+  const filteredBooks = books.filter(book => {
+    if (!searchQuery.trim()) return true; // Show all books if search is empty
+    
+    const searchLower = searchQuery.toLowerCase().trim();
+    const searchTerms = searchLower.split(' '); // Split search into terms for better matching
+    
+    return searchTerms.every(term => 
+      book.title.toLowerCase().includes(term) ||
+      book.author.toLowerCase().includes(term) ||
+      book.genre.toLowerCase().includes(term) ||
+      book.isbn.toLowerCase().includes(term) ||
+      book.publisher.toLowerCase().includes(term) ||
+      book.publishedYear.toString().includes(term)
+    );
+  });
+
+  // Sort filtered books
+  const sortedBooks = [...filteredBooks].sort((a, b) => {
     const aValue = a[sortBy].toString().toLowerCase();
     const bValue = b[sortBy].toString().toLowerCase();
     
@@ -28,18 +168,25 @@ export default function StudentDashboard() {
     }
   });
 
-  // Pagination calculations
+  // Update pagination calculations to use filtered books
   const totalItems = sortedBooks.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = sortedBooks.slice(indexOfFirstItem, indexOfLastItem);
 
+  // Handle search
   const handleSearch = (e) => {
     e.preventDefault();
-    // Here you would typically handle the search functionality
-    console.log('Searching for:', searchQuery);
+    setCurrentPage(1); // Reset to first page when searching
   };
+
+  // Reset search when search query is cleared
+  useEffect(() => {
+    if (!searchQuery) {
+      setCurrentPage(1);
+    }
+  }, [searchQuery]);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -57,8 +204,30 @@ export default function StudentDashboard() {
   };
 
   const handleBorrowRequest = (book) => {
-    // Here you would handle borrow request
-    console.log('Requesting to borrow:', book);
+    if (book.status === 'Available' && book.copies > 0) {
+      // Update the book status and copies
+      setBooks(prevBooks => prevBooks.map(b => {
+        if (b.id === book.id) {
+          return {
+            ...b,
+            status: 'Borrowed',
+            copies: b.copies - 1
+          };
+        }
+        return b;
+      }));
+
+      // Show success message
+      setBorrowSuccess(true);
+      setTimeout(() => setBorrowSuccess(false), 3000);
+
+      // Close the modal
+      setIsModalOpen(false);
+      setSelectedBook(null);
+    } else {
+      setBorrowError('Book is not available for borrowing');
+      setTimeout(() => setBorrowError(''), 3000);
+    }
   };
 
   const handleSortChange = (e) => {
@@ -69,6 +238,20 @@ export default function StudentDashboard() {
 
   return (
     <StudentLayout>
+      {/* Success Message */}
+      {borrowSuccess && (
+        <div className="fixed top-4 right-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded z-50">
+          <p>Book borrowed successfully!</p>
+        </div>
+      )}
+
+      {/* Error Message */}
+      {borrowError && (
+        <div className="fixed top-4 right-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded z-50">
+          <p>{borrowError}</p>
+        </div>
+      )}
+
       {/* Welcome Modal */}
       {isWelcomeModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
@@ -172,7 +355,7 @@ export default function StudentDashboard() {
                       </span>
                     </div>
                     <div>
-                      <label className="text-sm text-gray-600">Number of Copies:</label>
+                      <label className="text-sm text-gray-600">Available Copies:</label>
                       <p className="text-gray-900 text-sm">{selectedBook.copies}</p>
                     </div>
                   </div>
@@ -186,17 +369,27 @@ export default function StudentDashboard() {
             </div>
 
             <div className="mt-6 pt-3 border-t border-gray-200 flex justify-end space-x-3">
-              {selectedBook.status === 'Available' && (
+              {selectedBook.status === 'Available' && selectedBook.copies > 0 ? (
                 <button
                   onClick={() => handleBorrowRequest(selectedBook)}
-                  className="px-3 py-1.5 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   Borrow Book
                 </button>
+              ) : (
+                <button
+                  disabled
+                  className="px-4 py-2 bg-gray-400 text-white rounded-lg cursor-not-allowed"
+                >
+                  Not Available
+                </button>
               )}
               <button
-                onClick={() => setIsModalOpen(false)}
-                className="px-3 py-1.5 text-sm bg-red-600 text-white rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+                onClick={() => {
+                  setIsModalOpen(false);
+                  setSelectedBook(null);
+                }}
+                className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500"
               >
                 Close
               </button>
@@ -205,209 +398,186 @@ export default function StudentDashboard() {
         </div>
       )}
 
-      <div className="mb-8 text-center">
-        <h1 className="text-3xl font-semibold text-black-900 opacity-100">Library Books</h1>
-        <p className="text-black-600 opacity-100">Browse and borrow books from our collection</p>
-      </div>
-
-      <div className="bg-white rounded-xl shadow-lg p-6">
-        <div className="flex justify-between items-center mb-6">
-          <div className="flex items-center space-x-4">
-            <form onSubmit={handleSearch} className="flex items-center">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Search books..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 pr-4 py-2 border rounded-l-lg focus:outline-none focus:border-blue-500 text-black w-64"
-                />
-                <svg
-                  className="absolute left-3 top-2.5 w-5 h-5 text-gray-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </div>
-              <button 
-                type="submit"
-                className="px-4 py-2 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700"
-              >
-                Search
-              </button>
-            </form>
-
-            <div className="flex items-center space-x-2">
-              <label htmlFor="sort" className="text-sm font-medium text-gray-700">Sort by:</label>
-              <select
-                id="sort"
-                value={`${sortBy}-${sortOrder}`}
-                onChange={handleSortChange}
-                className="rounded-md border border-gray-300 py-2 px-3 text-sm focus:outline-none focus:border-blue-500"
-              >
-                <option value="title-asc">Title (A-Z)</option>
-                <option value="title-desc">Title (Z-A)</option>
-                <option value="author-asc">Author (A-Z)</option>
-                <option value="author-desc">Author (Z-A)</option>
-                <option value="genre-asc">Genre (A-Z)</option>
-                <option value="genre-desc">Genre (Z-A)</option>
-                <option value="publishedYear-asc">Year (Oldest)</option>
-                <option value="publishedYear-desc">Year (Newest)</option>
-                <option value="status-asc">Status (Available)</option>
-                <option value="status-desc">Status (Borrowed)</option>
-              </select>
-            </div>
-          </div>
+      <div className="p-8">
+        <div className="mb-8 text-black flex flex-col items-center">
+          <h1 className="text-3xl font-semibold">Library Catalog</h1>
+          <p className="text-black">Browse and search available books</p>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="min-w-full">
-            <thead>
-              <tr className="bg-gray-50">
-                <th className="text-left py-3 px-4 font-semibold">Title</th>
-                <th className="text-left py-3 px-4 font-semibold">Author</th>
-                <th className="text-left py-3 px-4 font-semibold">ISBN</th>
-                <th className="text-left py-3 px-4 font-semibold">Genre</th>
-                <th className="text-left py-3 px-4 font-semibold">Status</th>
-                <th className="text-left py-3 px-4 font-semibold">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentItems.map((book) => (
-                <tr key={book.id} className="border-t hover:bg-gray-50">
-                  <td className="py-3 px-4">{book.title}</td>
-                  <td className="py-3 px-4">{book.author}</td>
-                  <td className="py-3 px-4">{book.isbn}</td>
-                  <td className="py-3 px-4">{book.genre}</td>
-                  <td className="py-3 px-4">
-                    <span
-                      className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        book.status === 'Available'
-                          ? 'bg-green-100 text-green-800'
-                          : 'bg-yellow-100 text-yellow-800'
-                      }`}
-                    >
-                      {book.status}
-                    </span>
-                  </td>
-                  <td className="py-3 px-4">
-                    <div className="flex space-x-2">
-                      <button 
-                        onClick={() => handleViewDetails(book)}
-                        className="text-blue-600 hover:text-blue-800"
-                      >
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                          />
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                          />
-                        </svg>
-                      </button>
-                      {book.status === 'Available' && (
-                        <button 
-                          onClick={() => handleBorrowRequest(book)}
-                          className="text-green-600 hover:text-green-800"
-                        >
-                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                          </svg>
-                        </button>
-                      )}
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="bg-white rounded-xl shadow-lg p-6 text-black">
+          <div className="flex justify-between items-center mb-6">
+            <div className="flex items-center space-x-4">
+              <form onSubmit={handleSearch} className="flex items-center">
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search by title, author, genre, ISBN, publisher, or year..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-10 pr-4 py-2 border rounded-l-lg focus:outline-none focus:border-blue-500 text-black w-96"
+                  />
+                  <svg
+                    className="absolute left-3 top-2.5 w-5 h-5 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    />
+                  </svg>
+                </div>
+                <button 
+                  type="submit"
+                  className="px-4 py-2 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700"
+                >
+                  Search
+                </button>
+              </form>
 
-          {/* Pagination Controls */}
-          <div className="mt-4 flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
-            <div className="flex items-center">
-              <span className="text-sm text-gray-700">
-                Showing{' '}
-                <span className="font-medium">{indexOfFirstItem + 1}</span>
-                {' '}-{' '}
-                <span className="font-medium">
-                  {Math.min(indexOfLastItem, totalItems)}
-                </span>{' '}
-                of{' '}
-                <span className="font-medium">{totalItems}</span>{' '}
-                results
-              </span>
-              <select
-                value={itemsPerPage}
-                onChange={handleItemsPerPageChange}
-                className="ml-4 rounded-md border border-gray-300 py-1 px-2 text-sm focus:outline-none focus:border-blue-500"
-              >
-                <option value={5}>5 per page</option>
-                <option value={10}>10 per page</option>
-                <option value={20}>20 per page</option>
-                <option value={50}>50 per page</option>
-              </select>
-            </div>
-
-            <div className="flex items-center space-x-2">
-              <button
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1}
-                className={`relative inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold ring-1 ring-inset ${
-                  currentPage === 1
-                    ? 'text-gray-400 ring-gray-300 cursor-not-allowed'
-                    : 'text-gray-900 ring-gray-300 hover:bg-gray-50'
-                }`}
-              >
-                Previous
-              </button>
+              {/* Clear search button */}
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="text-gray-500 hover:text-gray-700 px-2 py-1 border rounded"
+                >
+                  Clear
+                </button>
+              )}
 
               <div className="flex items-center space-x-2">
-                {[...Array(totalPages)].map((_, index) => (
-                  <button
-                    key={index + 1}
-                    onClick={() => handlePageChange(index + 1)}
-                    className={`relative inline-flex items-center px-3 py-2 text-sm font-semibold ${
-                      currentPage === index + 1
-                        ? 'bg-blue-600 text-white'
-                        : 'text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50'
-                    } rounded-md`}
-                  >
-                    {index + 1}
-                  </button>
-                ))}
+                <label htmlFor="sort" className="text-sm font-medium text-gray-700">Sort by:</label>
+                <select
+                  id="sort"
+                  value={`${sortBy}-${sortOrder}`}
+                  onChange={handleSortChange}
+                  className="rounded-md border border-gray-300 py-2 px-3 text-sm focus:outline-none focus:border-blue-500"
+                >
+                  <option value="title-asc">Title (A-Z)</option>
+                  <option value="title-desc">Title (Z-A)</option>
+                  <option value="author-asc">Author (A-Z)</option>
+                  <option value="author-desc">Author (Z-A)</option>
+                  <option value="genre-asc">Genre (A-Z)</option>
+                  <option value="genre-desc">Genre (Z-A)</option>
+                  <option value="status-asc">Status (Available First)</option>
+                  <option value="status-desc">Status (Borrowed First)</option>
+                </select>
               </div>
-
-              <button
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
-                className={`relative inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold ring-1 ring-inset ${
-                  currentPage === totalPages
-                    ? 'text-gray-400 ring-gray-300 cursor-not-allowed'
-                    : 'text-gray-900 ring-gray-300 hover:bg-gray-50'
-                }`}
-              >
-                Next
-              </button>
             </div>
           </div>
+
+          {/* Search results count */}
+          {searchQuery && (
+            <div className="mb-4 text-sm text-gray-600">
+              Found {totalItems} {totalItems === 1 ? 'book' : 'books'} matching "{searchQuery}"
+            </div>
+          )}
+
+          {/* No results message */}
+          {searchQuery && totalItems === 0 && (
+            <div className="text-center py-8">
+              <p className="text-gray-500">No books found matching "{searchQuery}"</p>
+              <button
+                onClick={() => setSearchQuery('')}
+                className="mt-2 text-blue-600 hover:text-blue-800"
+              >
+                Clear search
+              </button>
+            </div>
+          )}
+
+          {/* Books table */}
+          {(!searchQuery || totalItems > 0) && (
+            <div className="overflow-x-auto">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Title
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Author
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Genre
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Status
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Available Copies
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {currentItems.map((book) => (
+                    <tr key={book.id} className="hover:bg-gray-50">
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm font-medium text-gray-900">{book.title}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900">{book.author}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900">{book.genre}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                          book.status === 'Available'
+                            ? 'bg-green-100 text-green-800'
+                            : 'bg-yellow-100 text-yellow-800'
+                        }`}>
+                          {book.status}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900">{book.copies}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button
+                          onClick={() => handleViewDetails(book)}
+                          className="text-blue-600 hover:text-blue-900"
+                        >
+                          View Details
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {/* Pagination */}
+          {totalItems > 0 && (
+            <div className="mt-4 flex justify-between items-center">
+              <div className="text-sm text-gray-700">
+                Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, totalItems)} of {totalItems} entries
+              </div>
+              <div className="flex space-x-2">
+                <button
+                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                  disabled={currentPage === 1}
+                  className="px-3 py-1 border rounded-md disabled:opacity-50"
+                >
+                  Previous
+                </button>
+                <button
+                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                  disabled={currentPage === totalPages}
+                  className="px-3 py-1 border rounded-md disabled:opacity-50"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </StudentLayout>
