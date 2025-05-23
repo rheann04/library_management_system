@@ -3,6 +3,11 @@ require_once 'config.php';
 
 $conn = getDBConnection();
 
+function getRequestBody() {
+    $input = file_get_contents('php://input');
+    return json_decode($input, true);
+}
+
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
         // Get all books or a specific book

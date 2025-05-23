@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { studentsAPI } from '../../services/api';
 
 export default function StudentsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);

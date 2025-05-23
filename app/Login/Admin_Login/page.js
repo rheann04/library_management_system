@@ -20,11 +20,18 @@ export default function AdminLogin() {
     router.push('/Login/Student_Login');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    localStorage.setItem('token', 'admin-token');
-    localStorage.setItem('userRole', 'admin');
-    router.push('/admin/dashboard');
+    
+    // Check for direct admin access
+    if (formData.emailOrUsername === 'admin' && formData.password === 'admin') {
+      localStorage.setItem('token', 'admin-token');
+      localStorage.setItem('userRole', 'admin');
+      router.push('/admin/dashboard');
+      return;
+    } else {
+      alert('Invalid admin credentials');
+    }
   };
 
   const handleChange = (e) => {
@@ -54,7 +61,7 @@ export default function AdminLogin() {
         <header className="bg-[#1A237E] shadow-md">
           <div className="flex items-center justify-between px-6 py-4">
             <div className="text-white text-2xl font-semibold">
-            BookWise
+              BookWise
             </div>
           </div>
           {/* Navigation Bar */}
@@ -104,16 +111,9 @@ export default function AdminLogin() {
         </header>
 
         {/* Page Content */}
-        <main className="p-6 flex justify-center items-center min-h-[calc(100vh-200px)]">
+        <main className="flex items-center justify-center p-6">
           <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
             <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">Admin Login</h1>
-            <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
-              <p className="text-sm text-blue-600">
-                Default credentials:<br />
-                Username: <span className="font-semibold">admin</span><br />
-                Password: <span className="font-semibold">admin</span>
-              </p>
-            </div>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label htmlFor="emailOrUsername" className="block text-sm font-medium text-gray-700">Email or Username</label>
@@ -152,9 +152,9 @@ export default function AdminLogin() {
         </main>
 
         {/* Footer */}
-        <div className="p-4 text-center text-black-600 text-sm opacity-100 relative z-20 bg-transparent">
+        <footer className="p-4 text-center text-black-600 text-sm opacity-100 relative z-20">
           © 2025 BSIT 2-4
-        </div>
+        </footer>
       </div>
     </div>
   );

@@ -20,33 +20,9 @@ export default function StudentLogin() {
     router.push('/Login/Student_Login');
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          username: formData.emailOrUsername,
-          password: formData.password
-        }),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        // Store the token
-        localStorage.setItem('token', data.token);
-        // Redirect based on role
-        if (data.user.role === 'admin') {
-          router.push('/admin/dashboard');
-        } else {
-          router.push('/student/dashboard');
-        }
-      } else {
-        alert(data.message || 'Login failed');
-      }
-    } catch (err) {
-      alert('Network error');
-    }
+    router.push('/student/dashboard');
   };
 
   const handleChange = (e) => {
